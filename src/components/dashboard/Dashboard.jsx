@@ -5,7 +5,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import SideNavigation from "./side-navigation/SideNavigation";
 import {useSelector} from "react-redux";
 import {Typography} from "@material-ui/core";
-import Profile from "./profile/Profile";
+import EditProfile from "./profile/EditProfile";
+import ViewApplication from "../application/ViewApplication";
 
 const drawerWidth = 240;
 
@@ -46,9 +47,9 @@ function Dashboard(props) {
         <>
             {isOpen && <SideNavigation/>}
             <main className={clsx(classes.content, {[classes.contentShift]: isOpen})}>
-                <div className={classes.drawerHeader} />
                 <Typography variant='h4' className={classes.title}>Emergency Electric INC</Typography>
-                <Route path='/dashboard/profile' component={Profile} />
+                <Route exact path='/dashboard' component={ViewApplication} />
+                <Route exact path='/dashboard/profile' component={EditProfile} />
             </main>
         </>
     )

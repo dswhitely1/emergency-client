@@ -10,6 +10,7 @@ const initialState = {
 const authStart = state => ({...state, isLoading: true, token: null, errors: null});
 const authSuccess = (state, payload) => ({...state, isLoading: false, token: payload, errors: null});
 const authFailure = (state, payload) => ({...state, isLoading: false, token: null, errors: payload});
+const logout = () => initialState;
 
 export default createReducer(initialState, {
     [types.LOGIN_START]: authStart,
@@ -17,5 +18,7 @@ export default createReducer(initialState, {
     [types.LOGIN_FAILURE]: authFailure,
     [types.REGISTER_START]: authStart,
     [types.REGISTER_SUCCESS]: authSuccess,
-    [types.REGISTER_FAILURE]: authFailure
+    [types.REGISTER_FAILURE]: authFailure,
+    [types.LOGOUT]: logout,
+    [types.WELCOME_BACK]: authSuccess
 })

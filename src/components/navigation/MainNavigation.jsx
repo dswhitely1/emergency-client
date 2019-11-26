@@ -8,12 +8,16 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../contexts/ActionsContext";
+import Button from "@material-ui/core/Button";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+    },
+    title: {
+        flexGrow: 1
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -59,6 +63,7 @@ function MainNavigation() {
                     <Typography variant='h6' className={classes.title}>
                         Emergency Electric INC
                     </Typography>
+                    {isAuth && <Button onClick={actions.auth.logout} color='inherit'>Logout</Button>}
                 </Toolbar>
             </AppBar>
         </div>

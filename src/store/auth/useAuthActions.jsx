@@ -9,10 +9,10 @@ export const useAuthActions = () => {
     const login = useCallback(credentials => {
         dispatch({type: types.LOGIN_START});
         axios().post('/auth/login', credentials).then(res => {
-            console.log(res.data);
+            localStorage.setItem('ee_token', JSON.stringify(res.data.token));
             dispatch({type: types.LOGIN_SUCCESS, payload: res.data.token})
         }).catch(err => {
-            console.log(err.response);
+            localStorage.removeItem('ee_token');
             dispatch({type: types.LOGIN_FAILURE, payload: err.response});
         })
     }, [dispatch]);
@@ -20,13 +20,22 @@ export const useAuthActions = () => {
     const register = useCallback(credentials => {
         dispatch({type: types.REGISTER_START});
         axios().post('/auth/register', credentials).then(res => {
-            console.log(res.data);
+            localStorage.setItem('ee_token', JSON.stringify(res.data.token));
             dispatch({type: types.REGISTER_SUCCESS, payload: res.data.token})
         }).catch(err => {
-            console.log(err.response);
+            localStorage.removeItem('ee_token');
             dispatch({type: types.REGISTER_FAILURE, payload: err.response})
         })
     }, [dispatch]);
 
-    return {login, register};
+    const logout = useCallback(()=> {
+        localStorage.removeItem('ee_token')
+        dispatch({type: types.LOGOUT})
+    }, [dispatch]);
+
+    const welcomeBack = useCallback(token => {
+        dispatch({type: types.WELCOME_BACK, payload: token})
+    }, [dispatch]);
+
+    return {login, register, logout, welcomeBack};
 };

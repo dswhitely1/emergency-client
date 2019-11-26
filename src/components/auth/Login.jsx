@@ -13,6 +13,7 @@ import {Link as RouterLink} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
+import jwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -47,6 +48,19 @@ function Login({register, history: {push}}) {
         password: '',
         confirmPassword: ''
     }, doLogin);
+
+    useEffect(() => {
+        const checkToken = JSON.parse(localStorage.getItem('ee_token'));
+        if (checkToken) {
+            const decodedToken = jwtDecode(checkToken);
+            const currentDate = Date.now() / 1000;
+            if (decodedToken.exp > currentDate) {
+                actions.auth.welcomeBack(checkToken);
+            } else {
+                actions.auth.logout();
+            }
+        }
+    }, [actions.auth]);
 
     useEffect(() => {
         if (token !== null) {

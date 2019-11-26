@@ -59,7 +59,7 @@ function SideNavigation() {
                     <ListItemIcon>
                         <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Profile" />
+                    <ListItemText primary="Personal Data" />
                 </ListItem>
             </List>
         </Drawer>
