@@ -2,6 +2,7 @@ import {useCallback} from 'react';
 import {useDispatch} from "react-redux";
 import {axiosNoAuth as axios} from "../utils/axiosConfig";
 import * as types from './authTypes';
+import * as navTypes from '../navigation/navigationTypes';
 
 export const useAuthActions = () => {
     const dispatch = useDispatch();
@@ -29,7 +30,8 @@ export const useAuthActions = () => {
     }, [dispatch]);
 
     const logout = useCallback(()=> {
-        localStorage.removeItem('ee_token')
+        localStorage.removeItem('ee_token');
+        dispatch({type: navTypes.DRAWER_OFF});
         dispatch({type: types.LOGOUT})
     }, [dispatch]);
 

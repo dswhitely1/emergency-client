@@ -69,7 +69,6 @@ function Login({register, history: {push}}) {
     }, [token, push]);
 
     function doLogin() {
-        console.log(values);
         const {username, password} = values;
         register ? actions.auth.register(values) : actions.auth.login({username, password});
     }

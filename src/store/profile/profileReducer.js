@@ -8,7 +8,17 @@ const initialState = {
 };
 
 const profileStart = state => ({...state, isLoading: true, profile: {}, errors: null});
-const profileSuccess = (state, payload) => ({...state, isLoading: false, profile: {...payload, startDate: payload && payload.startDate && payload.startDate.slice(0,10)}, errors: null});
+const profileSuccess = (state, payload) => {
+    if (Boolean(payload)) {
+        return ({
+            ...state,
+            isLoading: false,
+            profile: {...payload, startDate: payload && payload.startDate && payload.startDate.slice(0, 10)},
+            errors: null
+        })
+    }
+    return ({...state, isLoading: false, profile: payload, errors: null})
+};
 const profileFailure = (state, payload) => ({...state, isLoading: false, profile: {}, errors: payload});
 const profileDeleteSuccess = () => initialState;
 
