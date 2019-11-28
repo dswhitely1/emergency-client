@@ -38,5 +38,9 @@ export const useProfileActions = () => {
         }));
     }, [dispatch]);
 
-    return {getProfile, addProfile, updateProfile, deleteProfile}
+    const resetProfileSuccess = useCallback(()=> {
+        dispatch({type: types.RESET_PROFILE_SUCCESS});
+    }, [dispatch]);
+
+    return {getProfile, addProfile, updateProfile, deleteProfile, resetProfileSuccess}
 };

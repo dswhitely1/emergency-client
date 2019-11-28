@@ -38,17 +38,15 @@ export const useForm = (initialState, cbFunc) => {
                 case 'permitNo':
                     setValues(value => ({...value, permitNo: e.target.checked, permitYes: value.permitNo}));
                     break;
+                case 'contactYes':
+                    setValues(value=> ({...value, contactYes: e.target.checked, contactNo: value.contactYes}));
+                    break;
+                case 'contactNo':
+                    setValues(value=> ({...value, contactNo: e.target.checked, contactYes: value.contactNo}));
+                    break;
                 default:
                     setValues(value => ({...value, [e.target.name]: e.target.checked}));
             }
-            // if (e.target.name === 'authYes') {
-            //     const authYes = e.target.checked;
-            //     const authNo = !e.target.checked;
-            //     console.log(authNo);
-            //     setValues(value => ({...value, authYes, authNo}))
-            // } else {
-            //     setValues(value => ({...value, [e.target.name]: e.target.checked}));
-            // }
         } else {
             setValues(value => ({...value, [e.target.name]: e.target.value}))
         }

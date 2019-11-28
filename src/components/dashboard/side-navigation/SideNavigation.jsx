@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import {ActionsContext} from "../../../contexts/ActionsContext";
 import {Link as RouterLink} from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import WorkIcon from '@material-ui/icons/Work';
 
 const drawerWidth = 240;
 
@@ -60,6 +61,12 @@ function SideNavigation() {
                         <AccountBoxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Personal Data" />
+                </ListItem>
+                <ListItem button component={RouterLink} to='/dashboard/employment'>
+                    <ListItemIcon>
+                        <WorkIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Employment Data' />
                 </ListItem>
             </List>
         </Drawer>

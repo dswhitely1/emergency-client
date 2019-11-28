@@ -11,6 +11,9 @@ import {useSelector} from "react-redux";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Container from '@material-ui/core/Container'
+import {parseDate} from "../../utils/parseDate";
+import {Slide} from "@material-ui/core";
+import ConfirmDialog from "../../../shared/ConfirmDialog";
 
 
 const useStyles = makeStyles(theme => ({
@@ -58,10 +61,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 function EditProfile({history: {push}}) {
     const classes = useStyles();
     const {token} = useSelector(state => state.auth);
-    const {profile, errors, isLoading} = useSelector(state => state.profile);
+    const {profile, errors, isLoading, isSuccess} = useSelector(state => state.profile);
     const update = Boolean(profile.id);
     const actions = useContext(ActionsContext);
     const [values, change, submit, reset, setValues] = useForm({
@@ -97,17 +104,13 @@ function EditProfile({history: {push}}) {
         permitNA: true
     }, submitProfile);
 
-    function parseDate() {
-        const newDate = new Date();
-        const year = newDate.getFullYear();
-        const month = newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1;
-        const day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate();
-        return `${year}-${month}-${day}`
-    }
-
     useEffect(() => {
         actions.profile.getProfile(token)
-    }, []);
+    }, [actions.profile, token]);
+
+    useEffect(() => {
+        actions.nav.drawerOff();
+    }, [actions.nav]);
 
     useEffect(() => {
         setValues({...values, ...profile});
@@ -119,7 +122,11 @@ function EditProfile({history: {push}}) {
         } else {
             actions.profile.updateProfile(token, values);
         }
-        push('/dashboard')
+    }
+
+    function handleClose() {
+        actions.profile.resetProfileSuccess();
+        push('/dashboard');
     }
 
     const {firstName, middleName, lastName, preferredName, address, address1, city, state, zipCode, phoneNumber, altPhoneNumber, email, fullTime, partTime, temporary, weekdays, weekends, evenings, nights, referredBy, desiredPay, position, startDate, authYes, authNo, under18Yes, under18No, permitYes, permitNo, permitNA} = values;
@@ -342,32 +349,34 @@ function EditProfile({history: {push}}) {
                                               label='No' name='authNo'/>
                         </div>
 
-                            <div>
-                                <Typography paragraph>Are you under 18 years of age?</Typography>
-                                <FormControlLabel control={<Checkbox checked={under18Yes} onChange={change}/>}
-                                                  label='Yes' name='under18Yes'/>
-                                <FormControlLabel control={<Checkbox checked={under18No} onChange={change}/>}
-                                                  label='No' name='under18No'/>
-                            </div>
-                            <div>
-                                <Typography paragraph>If so, can you provide a work permit?</Typography>
-                                <FormControlLabel control={<Checkbox checked={permitYes} onChange={change}/>}
-                                                  label='Yes' name='permitYes' disabled={under18No}/>
-                                <FormControlLabel control={<Checkbox checked={permitNo} onChange={change}/>}
-                                                  label='No' name='permitNo' disabled={under18No}/>
-                                <FormControlLabel control={<Checkbox checked={permitNA} onChange={change}/>}
-                                                  label='N/A' name='permitNA' disabled/>
-                            </div>
+                        <div>
+                            <Typography paragraph>Are you under 18 years of age?</Typography>
+                            <FormControlLabel control={<Checkbox checked={under18Yes} onChange={change}/>}
+                                              label='Yes' name='under18Yes'/>
+                            <FormControlLabel control={<Checkbox checked={under18No} onChange={change}/>}
+                                              label='No' name='under18No'/>
+                        </div>
+                        <div>
+                            <Typography paragraph>If so, can you provide a work permit?</Typography>
+                            <FormControlLabel control={<Checkbox checked={permitYes} onChange={change}/>}
+                                              label='Yes' name='permitYes' disabled={under18No}/>
+                            <FormControlLabel control={<Checkbox checked={permitNo} onChange={change}/>}
+                                              label='No' name='permitNo' disabled={under18No}/>
+                            <FormControlLabel control={<Checkbox checked={permitNA} onChange={change}/>}
+                                              label='N/A' name='permitNA' disabled/>
+                        </div>
 
                     </div>
                     <Divider className={classes.divider}/>
                     <div className={classes.buttons}>
-                        <Button color='primary' onClick={reset}>Reset</Button>
+                        <Button color='primary' onClick={reset} disabled={isLoading}>Reset</Button>
                         <Button color='primary' type='submit'
-                                disabled={Object.is(values, profile)}>{update ? 'Update' : 'Save'}</Button>
+                                disabled={isLoading}>{update ? 'Update' : 'Save'}</Button>
                     </div>
                 </form>
             </Paper>
+            <ConfirmDialog isSuccess={isSuccess} handleClose={handleClose} title={`${update ? 'Update' : 'Save'}`}
+                           message={`Your ${update ? 'update' : 'save'} was successful`}/>
         </Container>
     )
 }

@@ -8,6 +8,9 @@ import Container from "@material-ui/core/Container";
 import {ActionsContext} from "../../contexts/ActionsContext";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import EmploymentFields from "../dashboard/employment/EmploymentFields";
+import Divider from "@material-ui/core/Divider";
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,6 +55,9 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-between',
         alignItems: 'center',
         margin: theme.spacing(2, 0)
+    },
+    divider: {
+        margin: theme.spacing(2, 0)
     }
 }));
 
@@ -60,10 +66,12 @@ function ViewApplication() {
     const actions = useContext(ActionsContext);
     const {token} = useSelector(state => state.auth);
     const {profile} = useSelector(state => state.profile);
+    const {employment} = useSelector(state => state.employment);
 
     useEffect(() => {
         if (!profile.id) {
-            actions.profile.getProfile(token)
+            actions.profile.getProfile(token);
+            actions.employment.fetchEmploymentData(token)
         }
     }, []);
 
@@ -71,7 +79,7 @@ function ViewApplication() {
         return (
             <>
                 <Typography variant='h2' className={classes.title}>No Application on File...</Typography>
-                <Typography paragraph className={classes.title}>Click the menu to get started</Typography>
+                <Typography paragraph className={classes.title}>Click {<Link to='/dashboard/profile'>Here</Link>} to get started</Typography>
             </>)
     }
 
@@ -293,6 +301,15 @@ function ViewApplication() {
                     required by law to verify your identification and employment authorization.
                 </Typography>
                 <Typography variant='h4' className={classes.title}>Employment Section</Typography>
+                {employment.map((item, id) => {
+                    return (
+                        <div key={item.id}>
+                            <Typography className={classes.title} variant='h6'>{`Employer #${id + 1}`}</Typography>
+                            <EmploymentFields values={item}/>
+                            <Divider className={classes.divider}/>
+                        </div>
+                    )
+                })}
             </Paper>
         </Container>
     )

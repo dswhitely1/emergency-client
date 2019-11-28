@@ -9,5 +9,9 @@ export const useNavigationActions = () => {
         dispatch({type: types.TOGGLE_DRAWER});
     }, [dispatch]);
 
-    return {toggleDrawer}
+    const drawerOff = useCallback(() => {
+        dispatch({type: types.DRAWER_OFF})
+    }, [dispatch]);
+
+    return {toggleDrawer, drawerOff}
 };
