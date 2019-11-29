@@ -300,6 +300,7 @@ function ViewApplication() {
                     employment authorization, and it will be necessary for you to submit such documents as are
                     required by law to verify your identification and employment authorization.
                 </Typography>
+                <Divider className={classes.divider}/>
                 <Typography variant='h4' className={classes.title}>Employment Section</Typography>
                 {employment.map((item, id) => {
                     return (
@@ -310,6 +311,7 @@ function ViewApplication() {
                         </div>
                     )
                 })}
+                <Typography variant='h4' className={classes.title}>Education Section</Typography>
             </Paper>
         </Container>
     )
