@@ -11,6 +11,8 @@ import AddEmployment from "./employment/AddEmployment";
 import EmploymentList from "./employment/EmploymentList";
 import EducationList from "./education/EducationList";
 import AddEducation from "./education/AddEducation";
+import ReferenceList from "./references/ReferenceList";
+import AddReference from "./references/AddReference";
 
 const drawerWidth = 240;
 
@@ -61,6 +63,9 @@ function Dashboard(props) {
                 <Route exact path={`${path}/education`} component={EducationList} />
                 <Route exact path={`${path}/education/add-education`} component={AddEducation}/>
                 <Route exact path={`${path}/education/edit/:id`} component={AddEducation} />
+                <Route exact path={`${path}/references`} component={ReferenceList} />
+                <Route exact path={`${path}/references/add-reference`} component={AddReference} />
+                <Route exact path={`${path}/references/edit/:id`} component={AddReference} />
             </main>
         </>
     )

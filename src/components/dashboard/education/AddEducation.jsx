@@ -53,7 +53,7 @@ function AddEducation(props) {
             const editingItem = education.filter(item => item.id.toString() === props.match.params.id)[0];
             setValues(editingItem);
         }
-    }, [edit, education, props.match.params.id, setValues]);
+    }, [edit]);
 
     function doSubmit() {
         if (edit) {

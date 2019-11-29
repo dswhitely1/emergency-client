@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function EducationFields({values}) {
-    console.log(values);
     const classes = useStyles();
     return (
        <div className={classes.formRows}>

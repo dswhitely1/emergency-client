@@ -13,12 +13,6 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../../contexts/ActionsContext";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Dialog from "@material-ui/core/Dialog";
-import {Slide} from "@material-ui/core";
 import ConfirmDialog from "../../../shared/ConfirmDialog";
 
 const useStyles = makeStyles(theme => ({
@@ -61,10 +55,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-})
-
 function AddEmployment(props) {
     const {errors, employment, isLoading, isSuccess} = useSelector(state => state.employment);
     const {token} = useSelector(state => state.auth);
@@ -86,7 +76,11 @@ function AddEmployment(props) {
     useEffect(() => {
         if (edit) {
             const editedItem = employment.filter(item => item.id.toString() === props.match.params.id)[0];
-            const editingItem = {...editedItem, startDate: parseDate(editedItem.startDate), endDate: parseDate(editedItem.endDate)}
+            const editingItem = {
+                ...editedItem,
+                startDate: parseDate(editedItem.startDate),
+                endDate: parseDate(editedItem.endDate)
+            };
             setValues(editingItem);
         }
     }, [edit]);
@@ -206,11 +200,13 @@ function AddEmployment(props) {
                     <Divider className={classes.divider}/>
                     <div className={classes.buttons}>
                         <Button color='primary' onClick={reset} disabled={isLoading}>Reset</Button>
-                        <Button color='primary' type='submit' disabled={isLoading}>{isLoading ? '...' : edit ? 'Update' : 'Save'}</Button>
+                        <Button color='primary' type='submit'
+                                disabled={isLoading}>{isLoading ? '...' : edit ? 'Update' : 'Save'}</Button>
                     </div>
                 </form>
             </Paper>
-            <ConfirmDialog isSuccess={isSuccess} handleClose={handleClose} title={`${edit ? 'Update' : 'Save'}`} message={`Your ${edit ? 'update' : 'save'} was successful!`} />
+            <ConfirmDialog isSuccess={isSuccess} handleClose={handleClose} title={`${edit ? 'Update' : 'Save'}`}
+                           message={`Your ${edit ? 'update' : 'save'} was successful!`}/>
         </Container>
     )
 }
