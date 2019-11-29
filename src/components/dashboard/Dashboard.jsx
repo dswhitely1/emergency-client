@@ -9,6 +9,8 @@ import EditProfile from "./profile/EditProfile";
 import ViewApplication from "../application/ViewApplication";
 import AddEmployment from "./employment/AddEmployment";
 import EmploymentList from "./employment/EmploymentList";
+import EducationList from "./education/EducationList";
+import AddEducation from "./education/AddEducation";
 
 const drawerWidth = 240;
 
@@ -56,6 +58,9 @@ function Dashboard(props) {
                 <Route exact path={`${path}/employment`} component={EmploymentList}/>
                 <Route exact path={`${path}/employment/add-employment`} component={AddEmployment}/>
                 <Route exact path={`${path}/employment/edit/:id`} component={AddEmployment} />
+                <Route exact path={`${path}/education`} component={EducationList} />
+                <Route exact path={`${path}/education/add-education`} component={AddEducation}/>
+                <Route exact path={`${path}/education/edit/:id`} component={AddEducation} />
             </main>
         </>
     )

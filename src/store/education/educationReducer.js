@@ -9,9 +9,9 @@ const initialState = {
     isSuccess: false
 }
 
-const educationStart = state => ({...state, isLoading: true, employment: [], errors: null})
-const educationSuccess = (state, payload) => ({...state, isLoading: false, employment: payload, errors: null});
-const addOrUpdateEducationSuccess = (state, payload) => ({...state, isLoading: false, employment: payload, errors: null, isSuccess: true})
+const educationStart = state => ({...state, isLoading: true, education: [], errors: null})
+const educationSuccess = (state, payload) => ({...state, isLoading: false, education: payload, errors: null});
+const addOrUpdateEducationSuccess = (state, payload) => ({...state, isLoading: false, education: payload, errors: null, isSuccess: true})
 const educationFail = (state, payload) => ({...state, isLoading: false, errors: payload, isSuccess: false});
 const logout = () => initialState;
 const resetSuccess = state => ({...state, isSuccess: false})

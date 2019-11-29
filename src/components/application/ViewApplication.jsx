@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import EmploymentFields from "../dashboard/employment/EmploymentFields";
 import Divider from "@material-ui/core/Divider";
 import {Link} from "react-router-dom";
+import EducationFields from "../dashboard/education/EducationFields";
 
 
 const useStyles = makeStyles(theme => ({
@@ -67,11 +68,13 @@ function ViewApplication() {
     const {token} = useSelector(state => state.auth);
     const {profile} = useSelector(state => state.profile);
     const {employment} = useSelector(state => state.employment);
+    const {education} = useSelector(state => state.education);
 
     useEffect(() => {
         if (!profile.id) {
             actions.profile.getProfile(token);
             actions.employment.fetchEmploymentData(token)
+            actions.education.fetchEducationData(token);
         }
     }, []);
 
@@ -312,6 +315,15 @@ function ViewApplication() {
                     )
                 })}
                 <Typography variant='h4' className={classes.title}>Education Section</Typography>
+                {education.map((item, id) => {
+                    return (
+                        <div key={item.id}>
+                            <Typography className={classes.title} variant='h6'>{`Education #${id + 1}`}</Typography>
+                            <EducationFields values={item} />
+                            <Divider className={classes.divider} />
+                        </div>
+                    )
+                })}
             </Paper>
         </Container>
     )

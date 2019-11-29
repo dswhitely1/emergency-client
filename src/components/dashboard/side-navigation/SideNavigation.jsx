@@ -15,6 +15,7 @@ import {ActionsContext} from "../../../contexts/ActionsContext";
 import {Link as RouterLink} from 'react-router-dom';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import WorkIcon from '@material-ui/icons/Work';
+import SchoolIcon from '@material-ui/icons/School';
 
 const drawerWidth = 240;
 
@@ -67,6 +68,12 @@ function SideNavigation() {
                         <WorkIcon />
                     </ListItemIcon>
                     <ListItemText primary='Employment Data' />
+                </ListItem>
+                <ListItem button component={RouterLink} to='/dashboard/education'>
+                    <ListItemIcon>
+                        <SchoolIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Education Data' />
                 </ListItem>
             </List>
         </Drawer>
