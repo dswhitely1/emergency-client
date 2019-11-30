@@ -342,7 +342,7 @@ function ViewApplication() {
                 </Typography>
                 <Typography paragraph>
                     By clicking submit attests to the fact that the information that I have provided on my
-                    application, resume, given verbally, or provided in any other marerials, is true and complete
+                    application, resume, given verbally, or provided in any other materials, is true and complete
                     to the best of my knowledge and also constitutes authority to verify any and all information
                     submitted on this application. I understand that any misrepresentation or omission of any
                     fact in my application, resume, or any other materials, or doing any interviews, can be
@@ -358,10 +358,10 @@ function ViewApplication() {
                     ELECTRIC, INC to its employees is intended to or can create an employment contract, an
                     offer of employment or any obligation on EMERGENCY ELECTRIC, INC part. EMERGENCY
                     ELECTRIC, INC may at its sole discretion, hold in abeyance or revoke, amend or modify,
-                    abridge or change any benefit, policy practice, condtion or process affecting its employees.
+                    abridge or change any benefit, policy practice, condition or process affecting its employees.
                 </Typography>
                 <Typography paragraph>
-                    I hearby authroize EMERGENCY ELECTRIC, INC and its agents to make such investigations
+                    I hereby authorize EMERGENCY ELECTRIC, INC and its agents to make such investigations
                     and inquiries into my employment and education history and other related matters as may
                     be necessary in arriving at an employment decision. I hereby release employers, schools,
                     and other persons from all liability in responding to inquires connected with my application
