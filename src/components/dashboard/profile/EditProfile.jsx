@@ -1,64 +1,14 @@
 import React, {useContext, useEffect} from 'react';
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import {makeStyles} from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
+import clsx from "clsx";
+import {Button, Checkbox, Container, Divider, FormControlLabel, Paper, TextField, Typography} from "@material-ui/core";
 import {useForm} from "../../../hooks/useForm";
 import {ActionsContext} from "../../../contexts/ActionsContext";
 import {useSelector} from "react-redux";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Container from '@material-ui/core/Container'
 import {parseDate} from "../../utils/parseDate";
 import ConfirmDialog from "../../../shared/ConfirmDialog";
+import {useStyles} from "../../styles/useStyles";
+import NavigationLinks from "../shared/NavigationLinks";
 
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        margin: theme.spacing(2, 0),
-        padding: theme.spacing(3)
-    },
-    title: {
-        textAlign: 'center'
-    },
-    formControl: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    formRows: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: theme.spacing(1, 0)
-    },
-    firstRow: {
-        width: 'calc(25% - 10px)'
-    },
-    address: {
-        width: 'calc(75% - 10px)'
-    },
-    address2: {
-        width: 'calc(25% - 10px)'
-    },
-    thirdRow: {
-        width: 'calc(33% - 10px)'
-    },
-    buttons: {
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
-    divider: {
-        margin: theme.spacing(2, 0)
-    },
-    middleContent: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: theme.spacing(2, 0)
-    }
-}));
 
 function EditProfile({history: {push}}) {
     const classes = useStyles();
@@ -121,20 +71,22 @@ function EditProfile({history: {push}}) {
 
     function handleClose() {
         actions.profile.resetProfileSuccess();
-        push('/dashboard');
+        push('/dashboard/employment');
     }
 
     const {firstName, middleName, lastName, preferredName, address, address1, city, state, zipCode, phoneNumber, altPhoneNumber, email, fullTime, partTime, temporary, weekdays, weekends, evenings, nights, referredBy, desiredPay, position, startDate, authYes, authNo, under18Yes, under18No, permitYes, permitNo, permitNA} = values;
     return (
         <Container maxWidth='lg'>
-            <Paper className={classes.root}>
+            <NavigationLinks currentTitle='Profile' nextTitle='Employment History' prevTitle='Home'
+                             nextUrl='/dashboard/employment' prevUrl='/dashboard'/>
+            <Paper className={clsx(classes.root, classes.appSpacing)}>
                 <Typography variant='h4' className={classes.title}>Profile</Typography>
                 <form className={classes.formControl} onSubmit={submit}>
                     <div className={classes.formRows}>
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.firstName)}
                             helperText={errors && errors.data && errors.data.firstName}
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             required
                             id="firstName"
                             label="First Name"
@@ -149,7 +101,7 @@ function EditProfile({history: {push}}) {
                             id='middleName'
                             label='Middle Name'
                             name='middleName'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={middleName}
                             onChange={change}
                         />
@@ -160,7 +112,7 @@ function EditProfile({history: {push}}) {
                             label='Last Name'
                             name='lastName'
                             required
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={lastName}
                             onChange={change}
                         />
@@ -170,7 +122,7 @@ function EditProfile({history: {push}}) {
                             id='preferredName'
                             label='Preferred Name'
                             name='preferredName'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={preferredName}
                             onChange={change}
                         />
@@ -183,7 +135,7 @@ function EditProfile({history: {push}}) {
                             label="Address"
                             name='address'
                             required
-                            className={classes.address}
+                            className={clsx(classes.one, classes.mobileSpacing)}
                             value={address}
                             onChange={change}
                         />
@@ -193,7 +145,7 @@ function EditProfile({history: {push}}) {
                             id='address1'
                             label="Apartment or Suite"
                             name='address1'
-                            className={classes.address2}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={address1}
                             onChange={change}
                         />
@@ -205,7 +157,7 @@ function EditProfile({history: {push}}) {
                             id='city'
                             label='City'
                             name='city'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             required
                             value={city}
                             onChange={change}
@@ -216,7 +168,7 @@ function EditProfile({history: {push}}) {
                             id='state'
                             label='State'
                             name='state'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             required
                             value={state}
                             onChange={change}
@@ -227,7 +179,7 @@ function EditProfile({history: {push}}) {
                             id='zipCode'
                             label='Zip Code'
                             name='zipCode'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             required
                             value={zipCode}
                             onChange={change}
@@ -240,7 +192,7 @@ function EditProfile({history: {push}}) {
                             id='phoneNumber'
                             label='Phone Number'
                             name='phoneNumber'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             required
                             value={phoneNumber}
                             onChange={change}
@@ -251,7 +203,7 @@ function EditProfile({history: {push}}) {
                             id='altPhoneNumber'
                             label='Alternate Phone Number'
                             name='altPhoneNumber'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             value={altPhoneNumber}
                             onChange={change}
                         />
@@ -261,15 +213,15 @@ function EditProfile({history: {push}}) {
                             id='email'
                             label='Email Address'
                             name='email'
-                            className={classes.thirdRow}
+                            className={clsx(classes.three, classes.mobileSpacing)}
                             required
                             value={email}
                             onChange={change}
                         />
                     </div>
-                    <div className={classes.middleContent}>
+                    <div className={classes.formRows}>
                         <div>
-                            <Typography variant='h6'>Are you interested in?</Typography>
+                            <Typography gutterBottom variant='body1'>Are you interested in?</Typography>
                             <FormControlLabel control={<Checkbox checked={fullTime} onChange={change}/>}
                                               label='Full Time' name='fullTime'/>
                             <FormControlLabel control={<Checkbox checked={partTime} onChange={change}/>}
@@ -278,7 +230,7 @@ function EditProfile({history: {push}}) {
                                               label='Temporary' name='temporary'/>
                         </div>
                         <div>
-                            <Typography variant='h6'>What schedule would you prefer?</Typography>
+                            <Typography gutterBottom variant='body1'>What schedule would you prefer?</Typography>
                             <FormControlLabel control={<Checkbox checked={weekdays} onChange={change}/>}
                                               label='Weekdays' name='weekdays'/>
                             <FormControlLabel control={<Checkbox checked={weekends} onChange={change}/>}
@@ -296,48 +248,48 @@ function EditProfile({history: {push}}) {
                             id='referredBy'
                             label='Referral'
                             name='referredBy'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={referredBy}
                             onChange={change}
                         />
                         <TextField
-                            error={Boolean(errors && errors.data && errors.data.referredBy)}
-                            helperText={errors && errors.data && errors.data.referredBy}
+                            error={Boolean(errors && errors.data && errors.data.desiredPay)}
+                            helperText={errors && errors.data && errors.data.desiredPay}
                             id='desiredPay'
                             label='Desired Pay'
                             name='desiredPay'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={desiredPay}
                             onChange={change}
                             required
                         />
                         <TextField
-                            error={Boolean(errors && errors.data && errors.data.referredBy)}
-                            helperText={errors && errors.data && errors.data.referredBy}
+                            error={Boolean(errors && errors.data && errors.data.startDate)}
+                            helperText={errors && errors.data && errors.data.startDate}
                             id='startDate'
                             label='Date you can start'
                             name='startDate'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={startDate}
                             type='date'
                             onChange={change}
                             required
                         />
                         <TextField
-                            error={Boolean(errors && errors.data && errors.data.referredBy)}
-                            helperText={errors && errors.data && errors.data.referredBy}
+                            error={Boolean(errors && errors.data && errors.data.position)}
+                            helperText={errors && errors.data && errors.data.position}
                             id='position'
                             label='Position Desired'
                             name='position'
-                            className={classes.firstRow}
+                            className={clsx(classes.four, classes.mobileSpacing)}
                             value={position}
                             onChange={change}
                             required
                         />
                     </div>
-                    <div className={classes.middleContent}>
+                    <div className={classes.formRows}>
                         <div>
-                            <Typography paragraph>Are you authorized to work in the United States?</Typography>
+                            <Typography gutterBottom>Are you authorized to work in the United States?</Typography>
                             <FormControlLabel control={<Checkbox checked={authYes} onChange={change}/>}
                                               label='Yes' name='authYes'/>
                             <FormControlLabel control={<Checkbox checked={authNo} onChange={change}/>}
@@ -345,14 +297,14 @@ function EditProfile({history: {push}}) {
                         </div>
 
                         <div>
-                            <Typography paragraph>Are you under 18 years of age?</Typography>
+                            <Typography gutterBottom>Are you under 18 years of age?</Typography>
                             <FormControlLabel control={<Checkbox checked={under18Yes} onChange={change}/>}
                                               label='Yes' name='under18Yes'/>
                             <FormControlLabel control={<Checkbox checked={under18No} onChange={change}/>}
                                               label='No' name='under18No'/>
                         </div>
                         <div>
-                            <Typography paragraph>If so, can you provide a work permit?</Typography>
+                            <Typography gutterBottom>If so, can you provide a work permit?</Typography>
                             <FormControlLabel control={<Checkbox checked={permitYes} onChange={change}/>}
                                               label='Yes' name='permitYes' disabled={under18No}/>
                             <FormControlLabel control={<Checkbox checked={permitNo} onChange={change}/>}
@@ -362,13 +314,14 @@ function EditProfile({history: {push}}) {
                         </div>
 
                     </div>
-                    <Divider className={classes.divider}/>
+                    <Divider className={classes.appSpacing}/>
                     <div className={classes.buttons}>
                         <Button color='primary' onClick={reset} disabled={isLoading}>Reset</Button>
                         <Button color='primary' type='submit'
                                 disabled={isLoading}>{update ? 'Update' : 'Save'}</Button>
                     </div>
                 </form>
+                <Divider className={classes.appSpacing}/>
             </Paper>
             <ConfirmDialog isSuccess={isSuccess} handleClose={handleClose} title={`${update ? 'Update' : 'Save'}`}
                            message={`Your ${update ? 'update' : 'save'} was successful`}/>

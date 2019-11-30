@@ -1,8 +1,9 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {TextField} from "@material-ui/core";
+import {useStyles} from "../../styles/useStyles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles2 = makeStyles(theme => ({
     root: {
         margin: theme.spacing(2, 0),
         padding: theme.spacing(3)
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         margin: theme.spacing(1, 0)
     },
-    firstRow: {
+    four: {
         width: 'calc(25% - 10px)'
     },
     contact: {
@@ -43,10 +44,10 @@ function ReferenceFields({values}) {
     const classes = useStyles();
     return (
         <div className={classes.formRows}>
-            <TextField className={classes.firstRow} required label='Name' value={values.name} disabled />
-            <TextField className={classes.firstRow} required label='Relationship' value={values.relationship} disabled />
-            <TextField className={classes.firstRow} required label='Years Known' value={values.years} disabled />
-            <TextField className={classes.firstRow} required label='PhoneNumber' value={values.phoneNumber} disabled />
+            <TextField className={classes.four} required label='Name' value={values.name} disabled />
+            <TextField className={classes.four} required label='Relationship' value={values.relationship} disabled />
+            <TextField className={classes.four} required label='Years Known' value={values.years} disabled />
+            <TextField className={classes.four} required label='PhoneNumber' value={values.phoneNumber} disabled />
         </div>
     )
 }

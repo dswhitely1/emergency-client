@@ -9,8 +9,13 @@ const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(2),
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: theme.spacing(2,0),
+        [theme.breakpoints.up('md')]: {
+            justifyContent: 'space-between',
+            flexDirection: 'column'
+        }
     }
 }));
 

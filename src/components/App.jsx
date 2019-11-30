@@ -8,7 +8,7 @@ import {ActionsProvider} from "../contexts/ActionsContext";
 import {useActions} from "../store/useActions";
 import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./dashboard/Dashboard";
-import theme from './theme';
+import theme from './styles/theme';
 
 function App() {
     const actions = useActions();

@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Header from "../shared/Header";
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../../contexts/ActionsContext";
+import NavigationLinks from "../shared/NavigationLinks";
 
 function EducationList() {
     const {education} = useSelector(state => state.education);
@@ -15,6 +16,13 @@ function EducationList() {
 
     return (
         <Container maxWidth='lg'>
+            <NavigationLinks
+                currentTitle='Education'
+                prevTitle='Employment History'
+                nextTitle='References'
+                nextUrl='/dashboard/references'
+                prevUrl='/dashboard/employment'
+            />
             <Header title='Education' url='/dashboard/education/add-education'/>
             {education.map(item => <EducationItem key={item.id} values={item}/>)}
         </Container>

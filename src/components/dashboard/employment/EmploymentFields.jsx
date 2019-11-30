@@ -5,8 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import {makeStyles} from "@material-ui/core";
+import {useStyles} from "../../styles/useStyles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles2 = makeStyles(theme => ({
     root: {
         margin: theme.spacing(2, 0),
         padding: theme.spacing(3)
@@ -49,7 +50,7 @@ function EmploymentFields({values}) {
         <>
             <div className={classes.formRows}>
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="companyName"
                     label="Company Name"
@@ -57,7 +58,7 @@ function EmploymentFields({values}) {
                     disabled
                 />
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="cityState"
                     label="City and State"
@@ -65,7 +66,7 @@ function EmploymentFields({values}) {
                     disabled
                 />
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="phoneNumber"
                     label="Phone Number"
@@ -75,7 +76,7 @@ function EmploymentFields({values}) {
             </div>
             <div className={classes.formRows}>
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="supervisor"
                     label="Supervisor"
@@ -83,7 +84,7 @@ function EmploymentFields({values}) {
                     disabled
                 />
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="startDate"
                     label="Start Date"
@@ -93,7 +94,7 @@ function EmploymentFields({values}) {
                     type='date'
                 />
                 <TextField
-                    className={classes.firstRow}
+                    className={classes.three}
                     required
                     id="endDate"
                     label="End Date"
@@ -104,15 +105,15 @@ function EmploymentFields({values}) {
             </div>
             <div className={classes.formRows}>
                 <TextField
-                    className={classes.evenRows}
+                    className={classes.two}
                     required
                     id="reasonForLeaving"
                     label="Reason for Leaving"
                     value={values.reasonForLeaving}
                     disabled
                 />
-                <div className={clsx(classes.evenRows, classes.contactContainer)}>
-                    <Typography paragraph className={classes.contact}>May we contact?</Typography>
+                <div className={clsx(classes.two, classes.contentContainer)}>
+                    <Typography className={classes.contact}>May we contact?</Typography>
                     <FormControlLabel control={<Checkbox checked={values.contactYes} disabled/>}
                                       label='Yes' name='contactYes'/>
                     <FormControlLabel control={<Checkbox checked={values.contactNo} disabled/>}
