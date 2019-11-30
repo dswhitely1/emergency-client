@@ -1,21 +1,16 @@
 import React, {useContext, useEffect} from 'react';
-import {makeStyles} from "@material-ui/core/Styles";
-import {useSelector} from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import {ActionsContext} from "../../contexts/ActionsContext";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import EmploymentFields from "../dashboard/employment/EmploymentFields";
-import Divider from "@material-ui/core/Divider";
+import clsx from "clsx";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {ActionsContext} from "../../contexts/ActionsContext";
+import {makeStyles} from "@material-ui/core/Styles";
+import {Checkbox, Container, Divider, FormControlLabel, Paper, TextField, Typography} from "@material-ui/core";
+import EmploymentFields from "../dashboard/employment/EmploymentFields";
 import EducationFields from "../dashboard/education/EducationFields";
 import ReferenceFields from "../dashboard/references/ReferenceFields";
+import {useStyles} from "../styles/useStyles";
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles2 = makeStyles(theme => ({
     root: {
         margin: theme.spacing(2, 0),
         padding: theme.spacing(3),
@@ -40,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         margin: theme.spacing(1, 0)
     },
-    firstRow: {
+    four: {
         width: 'calc(25% - 10px)'
     },
     address: {
@@ -49,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     address2: {
         width: 'calc(25% - 10px)'
     },
-    thirdRow: {
+    three: {
         width: 'calc(33% - 10px)'
     },
     middleContent: {
@@ -84,8 +79,8 @@ function ViewApplication() {
     if (!profile.id) {
         return (
             <>
-                <Typography variant='h2' className={classes.title}>No Application on File...</Typography>
-                <Typography paragraph className={classes.title}>Click {<Link to='/dashboard/profile'>Here</Link>} to get
+                <Typography variant='h2' className={clsx(classes.title, classes.appSpacing)}>No Application on File...</Typography>
+                <Typography paragraph className={clsx(classes.title, classes.appSpacing)}>Click {<Link to='/dashboard/profile'>Here</Link>} to get
                     started</Typography>
             </>)
     }
@@ -94,7 +89,7 @@ function ViewApplication() {
     return (
         <Container maxWidth='lg'>
             <Paper className={classes.root}>
-                <Typography variant='h5' className={classes.title}>Application for Employment</Typography>
+                <Typography variant='h5' className={clsx(classes.title, classes.appSpacing)}>Application for Employment</Typography>
                 <Typography paragraph>
                     EMERGENCY ELECTRIC, INC is an equal opportunity employer and does not discriminate
                     against any applicant or employee based on race, color, religion, sex, national origin,
@@ -104,11 +99,11 @@ function ViewApplication() {
                     EMERGENCY ELECTRIC, INC also provides reasonable accommodation to qualified
                     individuals with disabilities in accordance with applicable laws.
                 </Typography>
-                <Typography variant='h5' className={classes.title}>Personal Data</Typography>
+                <Typography variant='h5' className={clsx(classes.title, classes.appSpacing)}>Personal Data</Typography>
                 <form className={classes.formControl}>
                     <div className={classes.formRows}>
                         <TextField
-                            className={classes.firstRow}
+                            className={classes.four}
                             required
                             id="firstName"
                             label="First Name"
@@ -120,7 +115,7 @@ function ViewApplication() {
                             id='middleName'
                             label='Middle Name'
                             name='middleName'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={middleName}
                             disabled
                         />
@@ -129,7 +124,7 @@ function ViewApplication() {
                             label='Last Name'
                             name='lastName'
                             required
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={lastName}
                             disabled
                         />
@@ -137,7 +132,7 @@ function ViewApplication() {
                             id='preferredName'
                             label='Preferred Name'
                             name='preferredName'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={preferredName}
                             disabled
                         />
@@ -148,7 +143,7 @@ function ViewApplication() {
                             label="Address"
                             name='address'
                             required
-                            className={classes.address}
+                            className={classes.one}
                             value={address}
                             disabled
                         />
@@ -156,7 +151,7 @@ function ViewApplication() {
                             id='address1'
                             label="Apartment or Suite"
                             name='address1'
-                            className={classes.address2}
+                            className={classes.four}
                             value={address1}
                             disabled
                         />
@@ -166,7 +161,7 @@ function ViewApplication() {
                             id='city'
                             label='City'
                             name='city'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             required
                             value={city}
                             disabled
@@ -175,7 +170,7 @@ function ViewApplication() {
                             id='state'
                             label='State'
                             name='state'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             required
                             value={state}
                             disabled
@@ -184,7 +179,7 @@ function ViewApplication() {
                             id='zipCode'
                             label='Zip Code'
                             name='zipCode'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             required
                             value={zipCode}
                             disabled
@@ -195,7 +190,7 @@ function ViewApplication() {
                             id='phoneNumber'
                             label='Phone Number'
                             name='phoneNumber'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             required
                             value={phoneNumber}
                             disabled
@@ -204,7 +199,7 @@ function ViewApplication() {
                             id='altPhoneNumber'
                             label='Alternate Phone Number'
                             name='altPhoneNumber'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             value={altPhoneNumber}
                             disabled
                         />
@@ -212,13 +207,13 @@ function ViewApplication() {
                             id='email'
                             label='Email Address'
                             name='email'
-                            className={classes.thirdRow}
+                            className={classes.three}
                             required
                             value={email}
                             disabled
                         />
                     </div>
-                    <div className={classes.middleContent}>
+                    <div className={classes.formRows}>
                         <div>
                             <Typography variant='h6'>Are you interested in?</Typography>
                             <FormControlLabel control={<Checkbox checked={fullTime} disabled/>} label='Full Time'/>
@@ -238,7 +233,7 @@ function ViewApplication() {
                             id='referredBy'
                             label='Referral'
                             name='referredBy'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={referredBy}
                             disabled
                         />
@@ -246,7 +241,7 @@ function ViewApplication() {
                             id='desiredPay'
                             label='Desired Pay'
                             name='desiredPay'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={desiredPay}
                             required
                             disabled
@@ -255,7 +250,7 @@ function ViewApplication() {
                             id='startDate'
                             label='Date you can start'
                             name='startDate'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={startDate}
                             type='date'
                             required
@@ -265,13 +260,13 @@ function ViewApplication() {
                             id='position'
                             label='Position Desired'
                             name='position'
-                            className={classes.firstRow}
+                            className={classes.four}
                             value={position}
                             required
                             disabled
                         />
                     </div>
-                    <div className={classes.middleContent}>
+                    <div className={classes.formRows}>
                         <div>
                             <Typography paragraph>Are you authorized to work in the United States?</Typography>
                             <FormControlLabel control={<Checkbox checked={authYes}/>}
@@ -308,27 +303,27 @@ function ViewApplication() {
                     required by law to verify your identification and employment authorization.
                 </Typography>
                 <Divider className={classes.divider}/>
-                <Typography variant='h4' className={classes.title}>Employment</Typography>
+                <Typography variant='h4' className={clsx(classes.title, classes.appSpacing)}>Employment</Typography>
                 {employment.map((item, id) => {
                     return (
                         <div key={item.id}>
-                            <Typography className={classes.title} variant='h6'>{`Employer #${id + 1}`}</Typography>
+                            <Typography className={clsx(classes.title, classes.appSpacing)} variant='h6'>{`Employer #${id + 1}`}</Typography>
                             <EmploymentFields values={item}/>
                             <Divider className={classes.divider}/>
                         </div>
                     )
                 })}
-                <Typography variant='h4' className={classes.title}>Education</Typography>
+                <Typography variant='h4' className={clsx(classes.title, classes.appSpacing)}>Education</Typography>
                 {education.map((item, id) => {
                     return (
                         <div key={item.id}>
-                            <Typography className={classes.title} variant='h6'>{`Education #${id + 1}`}</Typography>
+                            <Typography className={clsx(classes.title, classes.appSpacing)} variant='h6'>{`Education #${id + 1}`}</Typography>
                             <EducationFields values={item}/>
                             <Divider className={classes.divider}/>
                         </div>
                     )
                 })}
-                <Typography variant='h4' className={classes.title}>References</Typography>
+                <Typography variant='h4' className={clsx(classes.title, classes.appSpacing)}>References</Typography>
                 {reference.map((item, id) => {
                     return (
                         <div key={item.id}>
@@ -338,6 +333,7 @@ function ViewApplication() {
                         </div>
                     )
                 })}
+                <div className={classes.appSpacing} />
                 <Typography paragraph>
                     I have submitted the application to EMERGENCY ELECTRIC, INC for the sole purpose of
                     obtaining employment. I acknowledge that the use of this application, and my filling it out,

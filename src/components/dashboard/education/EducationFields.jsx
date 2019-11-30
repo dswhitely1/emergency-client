@@ -4,8 +4,9 @@ import {InputLabel, TextField} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {useStyles} from "../../styles/useStyles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles2 = makeStyles(theme => ({
     root: {
         margin: theme.spacing(2, 0),
         padding: theme.spacing(3)
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         margin: theme.spacing(1, 0)
     },
-    firstRow: {
+    four: {
         width: 'calc(25% - 10px)'
     },
     contact: {
@@ -47,20 +48,20 @@ function EducationFields({values}) {
     return (
        <div className={classes.formRows}>
            <TextField
-               className={classes.firstRow}
+               className={classes.four}
                required
                label='School Name'
                value={values.schoolName}
                disabled
            />
            <TextField
-               className={classes.firstRow}
+               className={classes.four}
                required
                label='Subject Studied'
                value={values.subject}
                disabled
            />
-           <FormControl className={classes.firstRow}>
+           <FormControl className={classes.four}>
                <InputLabel id='graduate-select-label'>Did you graduate?</InputLabel>
                <Select
                    labelId='graduate-select-label'
@@ -72,7 +73,7 @@ function EducationFields({values}) {
                    <MenuItem value={"No"}>No</MenuItem>
                </Select>
            </FormControl>
-           <FormControl className={classes.firstRow}>
+           <FormControl className={classes.four}>
                <InputLabel id='received-select-label'>Degree or Diploma</InputLabel>
                <Select labelId='received-select-label' id='received-select' value={values.received} disabled>
                    <MenuItem value={"Diploma"}>Diploma</MenuItem>

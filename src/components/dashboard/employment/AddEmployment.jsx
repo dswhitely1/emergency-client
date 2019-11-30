@@ -1,21 +1,15 @@
 import React, {useContext, useEffect} from 'react';
 import clsx from "clsx";
 import {makeStyles} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
+import {Button, Checkbox, Container, Divider, FormControlLabel, Paper, TextField, Typography} from "@material-ui/core";
 import {useForm} from "../../../hooks/useForm";
-import TextField from "@material-ui/core/TextField";
 import {parseDate} from "../../utils/parseDate";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../../contexts/ActionsContext";
 import ConfirmDialog from "../../../shared/ConfirmDialog";
+import {useStyles} from "../../styles/useStyles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles2 = makeStyles(theme => ({
     root: {
         margin: theme.spacing(2, 0),
         padding: theme.spacing(3)
@@ -108,7 +102,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.companyName)}
                             helperText={errors && errors.data && errors.data.companyName}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="companyName"
                             label="Company Name"
@@ -120,7 +114,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.cityState)}
                             helperText={errors && errors.data && errors.data.cityState}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="cityState"
                             label="City and State"
@@ -131,7 +125,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.phoneNumber)}
                             helperText={errors && errors.data && errors.data.phoneNumber}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="phoneNumber"
                             label="Phone Number"
@@ -144,7 +138,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.supervisor)}
                             helperText={errors && errors.data && errors.data.supervisor}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="supervisor"
                             label="Supervisor"
@@ -155,7 +149,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.startDate)}
                             helperText={errors && errors.data && errors.data.startDate}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="startDate"
                             label="Start Date"
@@ -167,7 +161,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.endDate)}
                             helperText={errors && errors.data && errors.data.endDate}
-                            className={classes.firstRow}
+                            className={classes.three}
                             required
                             id="endDate"
                             label="End Date"
@@ -181,7 +175,7 @@ function AddEmployment(props) {
                         <TextField
                             error={Boolean(errors && errors.data && errors.data.reasonForLeaving)}
                             helperText={errors && errors.data && errors.data.reasonForLeaving}
-                            className={classes.evenRows}
+                            className={classes.two}
                             required
                             id="reasonForLeaving"
                             label="Reason for Leaving"
@@ -189,7 +183,7 @@ function AddEmployment(props) {
                             value={values.reasonForLeaving}
                             onChange={change}
                         />
-                        <div className={clsx(classes.evenRows, classes.contactContainer)}>
+                        <div className={clsx(classes.two, classes.contactContainer)}>
                             <Typography paragraph className={classes.contact}>May we contact?</Typography>
                             <FormControlLabel control={<Checkbox checked={values.contactYes} onChange={change}/>}
                                               label='Yes' name='contactYes'/>
