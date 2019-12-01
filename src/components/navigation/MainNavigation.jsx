@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {ActionsContext} from "../../contexts/ActionsContext";
 import Button from "@material-ui/core/Button";
 import HomePageButtons from './buttons/HomePageButtons';
+import InfoButton from "./buttons/InfoButton";
 
 const drawerWidth = 240;
 
@@ -48,6 +49,7 @@ function MainNavigation() {
     const isAuth = useSelector(state => Boolean(state.auth.token));
     const {isAdmin} = useSelector(state => state.auth);
     const {isOpen} = useSelector(state => state.nav);
+    const {profiles, messages} = useSelector(state => state.admin);
     const actions = useContext(ActionsContext);
     return (
         <div className={classes.root}>
@@ -67,9 +69,10 @@ function MainNavigation() {
                         Emergency Electric INC
                     </Typography>
                     <Button color='inherit' component={RouterLink} to='/'>Home</Button>
-                    {!isAuth && <HomePageButtons />}
+                    {!isAuth && <HomePageButtons/>}
+                    {isAdmin && isAuth && <InfoButton color='secondary' name='Messages' url='/admin/dashboard/messages' value={messages.filter(({read})=> read !== true).length} />}
                     {isAdmin && isAuth &&
-                    <Button color='inherit' component={RouterLink} to='/admin/dashboard'>Dashboard</Button>}
+                    <InfoButton color='secondary' name='Applications' url='/admin/dashboard/applications' value={profiles.length}/>}
                     {isAuth && <Button onClick={actions.auth.logout} color='inherit'>Logout</Button>}
                 </Toolbar>
             </AppBar>

@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {Container, FormControl, InputLabel, makeStyles, MenuItem, Paper, Select, Typography} from "@material-ui/core";
-import {ActionsContext} from "../../contexts/ActionsContext";
-import ViewApplication from "../application/ViewApplication";
-import {parseDate} from "../utils/parseDate";
-import Spinner from "../dashboard/shared/Spinner";
+import {ActionsContext} from "../../../contexts/ActionsContext";
+import ViewApplication from "../../application/ViewApplication";
+import {parseDate} from "../../utils/parseDate";
+import Spinner from "../../dashboard/shared/Spinner";
 
 const useStyles = makeStyles(theme => ({
     root: {

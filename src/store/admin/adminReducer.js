@@ -43,4 +43,10 @@ export default createReducer(initialState, {
     [types.FETCH_MESSAGES_START]: adminStart,
     [types.FETCH_MESSAGES_SUCCESS]: fetchMessagesSuccess,
     [types.FETCH_MESSAGES_FAILURE]: adminFail,
+    [types.MARK_MESSAGE_READ_START]: adminStart,
+    [types.MARK_MESSAGE_READ_SUCCESS]: fetchMessagesSuccess,
+    [types.MARK_MESSAGE_READ_FAILURE]: adminFail,
+    [types.DELETE_MESSAGE_START]: adminStart,
+    [types.DELETE_MESSAGE_SUCCESS]: fetchMessagesSuccess,
+    [types.DELETE_MESSAGE_FAILURE]: adminFail,
 })

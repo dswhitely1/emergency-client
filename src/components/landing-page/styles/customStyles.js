@@ -55,6 +55,14 @@ export const StyledTypography = styled(Typography)`
       margin: 0 !important;
       padding-top: 32px;
     `}  
+    ${props => props.noMargin && css`
+        margin: 0 !important;
+    `}
+    
+    ${props => props.title && css`
+        text-transform: uppercase;
+        margin: 16px 0;
+    `}
 `;
 
 export const Image = styled.img`
@@ -70,7 +78,6 @@ export const Image = styled.img`
 
 export const StyledPaper = styled(Paper)`
   padding: 24px;
-  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;

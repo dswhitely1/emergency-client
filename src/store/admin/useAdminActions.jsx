@@ -33,5 +33,32 @@ export const useAdminActions = () => {
         })
     }, [dispatch]);
 
-    return {fetchUsers, fetchUserProfile, fetchProfiles}
+    const fetchMessages = useCallback(token => {
+        dispatch({type: types.FETCH_MESSAGES_START});
+        axios(token).get('/messages').then(res => {
+            dispatch({type: types.FETCH_MESSAGES_SUCCESS, payload: res.data})
+        }).catch(err => {
+            dispatch({type: types.FETCH_MESSAGES_FAILURE, payload: err.response})
+        })
+    }, [dispatch]);
+
+    const markMessageRead = useCallback((token, id, readData) => {
+        dispatch({type: types.MARK_MESSAGE_READ_START});
+        axios(token).put(`/messages/${id}`, readData).then(res => {
+            dispatch({type: types.MARK_MESSAGE_READ_SUCCESS, payload: res.data})
+        }).catch(err => {
+            dispatch({type: types.MARK_MESSAGE_READ_FAILURE, payload: err.response})
+        })
+    }, [dispatch]);
+
+    const deleteMessage = useCallback((token, id) => {
+        dispatch({type: types.DELETE_MESSAGE_START});
+        axios(token).delete(`/messages/${id}`).then(res => {
+            dispatch({type: types.DELETE_MESSAGE_SUCCESS, payload: res.data})
+        }).catch(err => {
+            dispatch({type: types.DELETE_MESSAGE_FAILURE, payload: err.response})
+        })
+    }, [dispatch]);
+
+    return {fetchUsers, fetchUserProfile, fetchProfiles, fetchMessages, markMessageRead, deleteMessage}
 };

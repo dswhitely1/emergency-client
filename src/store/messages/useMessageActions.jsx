@@ -11,9 +11,10 @@ export const useMessageActions = () => {
         axios().post('/messages', message).then(() => {
             dispatch({type: types.SEND_MESSAGE_SUCCESS})
         }).catch(err => {
+            console.log(err.response);
             dispatch({type: types.SEND_MESSAGE_FAILURE, payload: err.response})
         })
-    }, [dispatch])
+    }, [dispatch]);
 
     const resetSuccess = useCallback(()=> {
         dispatch({type: types.RESET_MESSAGE_SUCCESS})

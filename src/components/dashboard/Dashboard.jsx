@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, useRouteMatch} from 'react-router-dom';
 import clsx from 'clsx';
 import {makeStyles} from "@material-ui/core/styles";
@@ -47,10 +47,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
+
 function Dashboard(props) {
     const classes = useStyles();
     const {path} = useRouteMatch();
     const {isOpen} = useSelector(state => state.nav);
+    const {isAdmin} = useSelector(state => state.auth);
+
+    useEffect(()=> {
+        if (isAdmin) props.history.push('/admin/dashboard')
+    }, [isAdmin])
+
     return (
         <>
             {isOpen && <SideNavigation/>}

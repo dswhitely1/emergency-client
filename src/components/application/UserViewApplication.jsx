@@ -14,7 +14,7 @@ function UserViewApplication() {
     const classes = useStyles();
     const actions = useContext(ActionsContext);
     const {auth: {token}, profile: {profile}, employment: {employment}, education: {education}, reference: {reference}} = useSelector(state => state);
-
+    const {isAdmin} = useSelector(state => state.admin);
     useEffect(() => {
         if (!profile.id) {
             actions.profile.getProfile(token);
