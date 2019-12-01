@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {Link as RouterLink} from 'react-router-dom';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
@@ -44,13 +45,14 @@ const useStyles = makeStyles(theme => ({
 function MainNavigation() {
     const classes = useStyles();
     const isAuth = useSelector(state => Boolean(state.auth.token));
+    const {isAdmin} = useSelector(state => state.auth);
     const {isOpen} = useSelector(state => state.nav);
     const actions = useContext(ActionsContext);
     return (
         <div className={classes.root}>
             <AppBar position='static' className={clsx(classes.appBar, {[classes.appBarShift]: isOpen})}>
                 <Toolbar>
-                    {isAuth &&
+                    {isAuth && !isAdmin &&
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -58,11 +60,13 @@ function MainNavigation() {
                         edge="start"
                         className={clsx(classes.menuButton, isOpen && classes.hide)}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>}
                     <Typography variant='h6' className={classes.title}>
                         Emergency Electric INC
                     </Typography>
+                    {isAdmin && isAuth &&
+                    <Button color='inherit' component={RouterLink} to='/admin/dashboard'>Dashboard</Button>}
                     {isAuth && <Button onClick={actions.auth.logout} color='inherit'>Logout</Button>}
                 </Toolbar>
             </AppBar>

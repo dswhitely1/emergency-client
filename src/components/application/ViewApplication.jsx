@@ -1,95 +1,23 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import clsx from "clsx";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../contexts/ActionsContext";
-import {makeStyles} from "@material-ui/core/Styles";
 import {Checkbox, Container, Divider, FormControlLabel, Paper, TextField, Typography} from "@material-ui/core";
 import EmploymentFields from "../dashboard/employment/EmploymentFields";
 import EducationFields from "../dashboard/education/EducationFields";
 import ReferenceFields from "../dashboard/references/ReferenceFields";
+import {parseDate} from "../utils/parseDate";
 import {useStyles} from "../styles/useStyles";
 
-const useStyles2 = makeStyles(theme => ({
-    root: {
-        margin: theme.spacing(2, 0),
-        padding: theme.spacing(3),
-        width: '100%',
-        overflowX: 'auto'
-    },
-    table: {
-        minWidth: 650
-    },
-    title: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        marginBottom: theme.spacing(2)
-    },
-    formControl: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    formRows: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: theme.spacing(1, 0)
-    },
-    four: {
-        width: 'calc(25% - 10px)'
-    },
-    address: {
-        width: 'calc(75% - 10px)'
-    },
-    address2: {
-        width: 'calc(25% - 10px)'
-    },
-    three: {
-        width: 'calc(33% - 10px)'
-    },
-    middleContent: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: theme.spacing(2, 0)
-    },
-    divider: {
-        margin: theme.spacing(2, 0)
-    }
-}));
-
-function ViewApplication() {
+function ViewApplication({values, employment, education, reference}) {
     const classes = useStyles();
-    const actions = useContext(ActionsContext);
-    const {token} = useSelector(state => state.auth);
-    const {profile} = useSelector(state => state.profile);
-    const {employment} = useSelector(state => state.employment);
-    const {education} = useSelector(state => state.education);
-    const {reference} = useSelector(state => state.reference);
-
-    useEffect(() => {
-        if (!profile.id) {
-            actions.profile.getProfile(token);
-            actions.employment.fetchEmploymentData(token);
-            actions.education.fetchEducationData(token);
-            actions.reference.fetchReferenceData(token);
-        }
-    }, []);
-
-    if (!profile.id) {
-        return (
-            <>
-                <Typography variant='h2' className={clsx(classes.title, classes.appSpacing)}>No Application on File...</Typography>
-                <Typography paragraph className={clsx(classes.title, classes.appSpacing)}>Click {<Link to='/dashboard/profile'>Here</Link>} to get
-                    started</Typography>
-            </>)
-    }
-
-    const {firstName, middleName, lastName, preferredName, address, address1, city, state, zipCode, phoneNumber, altPhoneNumber, email, fullTime, partTime, temporary, weekdays, weekends, evenings, nights, referredBy, desiredPay, startDate, position, authYes, authNo, under18Yes, under18No, permitYes, permitNo, permitNA} = profile;
+    console.log(values);
     return (
         <Container maxWidth='lg'>
             <Paper className={classes.root}>
-                <Typography variant='h5' className={clsx(classes.title, classes.appSpacing)}>Application for Employment</Typography>
+                <Typography variant='h5' className={clsx(classes.title, classes.appSpacing)}>Application for
+                    Employment</Typography>
                 <Typography paragraph>
                     EMERGENCY ELECTRIC, INC is an equal opportunity employer and does not discriminate
                     against any applicant or employee based on race, color, religion, sex, national origin,
@@ -108,16 +36,16 @@ function ViewApplication() {
                             id="firstName"
                             label="First Name"
                             name="firstName"
-                            value={firstName}
-                            disabled
+                            value={values.firstName}
+
                         />
                         <TextField
                             id='middleName'
                             label='Middle Name'
                             name='middleName'
                             className={classes.four}
-                            value={middleName}
-                            disabled
+                            value={values.middleName}
+
                         />
                         <TextField
                             id='lastName'
@@ -125,16 +53,16 @@ function ViewApplication() {
                             name='lastName'
                             required
                             className={classes.four}
-                            value={lastName}
-                            disabled
+                            value={values.lastName}
+
                         />
                         <TextField
                             id='preferredName'
                             label='Preferred Name'
                             name='preferredName'
                             className={classes.four}
-                            value={preferredName}
-                            disabled
+                            value={values.preferredName}
+
                         />
                     </div>
                     <div className={classes.formRows}>
@@ -144,16 +72,14 @@ function ViewApplication() {
                             name='address'
                             required
                             className={classes.one}
-                            value={address}
-                            disabled
+                            value={values.address}
                         />
                         <TextField
                             id='address1'
                             label="Apartment or Suite"
                             name='address1'
                             className={classes.four}
-                            value={address1}
-                            disabled
+                            value={values.address1}
                         />
                     </div>
                     <div className={classes.formRows}>
@@ -163,8 +89,8 @@ function ViewApplication() {
                             name='city'
                             className={classes.three}
                             required
-                            value={city}
-                            disabled
+                            value={values.city}
+
                         />
                         <TextField
                             id='state'
@@ -172,8 +98,8 @@ function ViewApplication() {
                             name='state'
                             className={classes.three}
                             required
-                            value={state}
-                            disabled
+                            value={values.state}
+
                         />
                         <TextField
                             id='zipCode'
@@ -181,8 +107,8 @@ function ViewApplication() {
                             name='zipCode'
                             className={classes.three}
                             required
-                            value={zipCode}
-                            disabled
+                            value={values.zipCode}
+
                         />
                     </div>
                     <div className={classes.formRows}>
@@ -192,16 +118,16 @@ function ViewApplication() {
                             name='phoneNumber'
                             className={classes.three}
                             required
-                            value={phoneNumber}
-                            disabled
+                            value={values.phoneNumber}
+
                         />
                         <TextField
                             id='altPhoneNumber'
                             label='Alternate Phone Number'
                             name='altPhoneNumber'
                             className={classes.three}
-                            value={altPhoneNumber}
-                            disabled
+                            value={values.altPhoneNumber}
+
                         />
                         <TextField
                             id='email'
@@ -209,23 +135,23 @@ function ViewApplication() {
                             name='email'
                             className={classes.three}
                             required
-                            value={email}
-                            disabled
+                            value={values.email}
+
                         />
                     </div>
                     <div className={classes.formRows}>
                         <div>
                             <Typography variant='h6'>Are you interested in?</Typography>
-                            <FormControlLabel control={<Checkbox checked={fullTime} disabled/>} label='Full Time'/>
-                            <FormControlLabel control={<Checkbox checked={partTime} disabled/>} label='Part Time'/>
-                            <FormControlLabel control={<Checkbox checked={temporary} disabled/>} label='Temporary'/>
+                            <FormControlLabel control={<Checkbox checked={values.fullTime} />} label='Full Time'/>
+                            <FormControlLabel control={<Checkbox checked={values.partTime} />} label='Part Time'/>
+                            <FormControlLabel control={<Checkbox checked={values.temporary} />} label='Temporary'/>
                         </div>
                         <div>
                             <Typography variant='h6'>What schedule would you prefer?</Typography>
-                            <FormControlLabel control={<Checkbox checked={weekdays} disabled/>} label='Weekdays'/>
-                            <FormControlLabel control={<Checkbox checked={weekends} disabled/>} label='Weekends'/>
-                            <FormControlLabel control={<Checkbox checked={evenings} disabled/>} label='Evenings'/>
-                            <FormControlLabel control={<Checkbox checked={nights} disabled/>} label='Nights'/>
+                            <FormControlLabel control={<Checkbox checked={values.weekdays} />} label='Weekdays'/>
+                            <FormControlLabel control={<Checkbox checked={values.weekends} />} label='Weekends'/>
+                            <FormControlLabel control={<Checkbox checked={values.evenings} />} label='Evenings'/>
+                            <FormControlLabel control={<Checkbox checked={values.nights} />} label='Nights'/>
                         </div>
                     </div>
                     <div className={classes.formRows}>
@@ -234,62 +160,62 @@ function ViewApplication() {
                             label='Referral'
                             name='referredBy'
                             className={classes.four}
-                            value={referredBy}
-                            disabled
+                            value={values.referredBy}
+
                         />
                         <TextField
                             id='desiredPay'
                             label='Desired Pay'
                             name='desiredPay'
                             className={classes.four}
-                            value={desiredPay}
+                            value={values.desiredPay}
                             required
-                            disabled
+
                         />
                         <TextField
                             id='startDate'
                             label='Date you can start'
                             name='startDate'
                             className={classes.four}
-                            value={startDate}
+                            value={parseDate(values.startDate)}
                             type='date'
                             required
-                            disabled
+
                         />
                         <TextField
                             id='position'
                             label='Position Desired'
                             name='position'
                             className={classes.four}
-                            value={position}
+                            value={values.position}
                             required
-                            disabled
+
                         />
                     </div>
                     <div className={classes.formRows}>
                         <div>
                             <Typography paragraph>Are you authorized to work in the United States?</Typography>
-                            <FormControlLabel control={<Checkbox checked={authYes}/>}
-                                              label='Yes' name='authYes' disabled/>
-                            <FormControlLabel control={<Checkbox checked={authNo}/>}
-                                              label='No' name='authNo' disabled/>
+                            <FormControlLabel control={<Checkbox checked={values.authYes}/>}
+                                              label='Yes' name='authYes' />
+                            <FormControlLabel control={<Checkbox checked={values.authNo}/>}
+                                              label='No' name='authNo' />
                         </div>
 
                         <div>
                             <Typography paragraph>Are you under 18 years of age?</Typography>
-                            <FormControlLabel control={<Checkbox checked={under18Yes}/>}
-                                              label='Yes' name='under18Yes' disabled/>
-                            <FormControlLabel control={<Checkbox checked={under18No}/>}
-                                              label='No' name='under18No' disabled/>
+                            <FormControlLabel control={<Checkbox checked={values.under18Yes}/>}
+                                              label='Yes' name='under18Yes' />
+                            <FormControlLabel control={<Checkbox checked={values.under18No}/>}
+                                              label='No' name='under18No' />
                         </div>
                         <div>
                             <Typography paragraph>If so, can you provide a work permit?</Typography>
-                            <FormControlLabel control={<Checkbox checked={permitYes}/>}
-                                              label='Yes' name='permitYes' disabled/>
-                            <FormControlLabel control={<Checkbox checked={permitNo}/>}
-                                              label='No' name='permitNo' disabled/>
-                            <FormControlLabel control={<Checkbox checked={permitNA}/>}
-                                              label='N/A' name='permitNA' disabled/>
+                            <FormControlLabel control={<Checkbox checked={values.permitYes}/>}
+                                              label='Yes' name='permitYes' />
+                            <FormControlLabel control={<Checkbox checked={values.permitNo}/>}
+                                              label='No' name='permitNo' />
+                            <FormControlLabel control={<Checkbox checked={values.permitNA}/>}
+                                              label='N/A' name='permitNA' />
                         </div>
 
                     </div>
@@ -307,7 +233,8 @@ function ViewApplication() {
                 {employment.map((item, id) => {
                     return (
                         <div key={item.id}>
-                            <Typography className={clsx(classes.title, classes.appSpacing)} variant='h6'>{`Employer #${id + 1}`}</Typography>
+                            <Typography className={clsx(classes.title, classes.appSpacing)}
+                                        variant='h6'>{`Employer #${id + 1}`}</Typography>
                             <EmploymentFields values={item}/>
                             <Divider className={classes.divider}/>
                         </div>
@@ -317,7 +244,8 @@ function ViewApplication() {
                 {education.map((item, id) => {
                     return (
                         <div key={item.id}>
-                            <Typography className={clsx(classes.title, classes.appSpacing)} variant='h6'>{`Education #${id + 1}`}</Typography>
+                            <Typography className={clsx(classes.title, classes.appSpacing)}
+                                        variant='h6'>{`Education #${id + 1}`}</Typography>
                             <EducationFields values={item}/>
                             <Divider className={classes.divider}/>
                         </div>
@@ -333,7 +261,7 @@ function ViewApplication() {
                         </div>
                     )
                 })}
-                <div className={classes.appSpacing} />
+                <div className={classes.appSpacing}/>
                 <Typography paragraph>
                     I have submitted the application to EMERGENCY ELECTRIC, INC for the sole purpose of
                     obtaining employment. I acknowledge that the use of this application, and my filling it out,

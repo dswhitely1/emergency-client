@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDispatch} from "react-redux";
-import {axiosNoAuth as axios} from "../utils/axiosConfig";
+import {axiosNoAuth as axios, axiosWithAuth} from "../utils/axiosConfig";
 import * as types from './authTypes';
 import * as navTypes from '../navigation/navigationTypes';
 
@@ -29,7 +29,7 @@ export const useAuthActions = () => {
         })
     }, [dispatch]);
 
-    const logout = useCallback(()=> {
+    const logout = useCallback(() => {
         localStorage.removeItem('ee_token');
         dispatch({type: navTypes.DRAWER_OFF});
         dispatch({type: types.LOGOUT})
@@ -39,5 +39,14 @@ export const useAuthActions = () => {
         dispatch({type: types.WELCOME_BACK, payload: token})
     }, [dispatch]);
 
-    return {login, register, logout, welcomeBack};
+    const checkAdmin = useCallback(token => {
+        dispatch({type: types.IS_ADMIN_START});
+        axiosWithAuth(token).get('/admin').then(() => {
+            dispatch({type: types.IS_ADMIN_SUCCESS})
+        }).catch(() => {
+            dispatch({type: types.IS_ADMIN_FAILURE})
+        })
+    }, [dispatch]);
+
+    return {login, register, logout, welcomeBack, checkAdmin};
 };

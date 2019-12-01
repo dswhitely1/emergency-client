@@ -9,6 +9,8 @@ import {useActions} from "../store/useActions";
 import PrivateRoute from "./auth/PrivateRoute";
 import Dashboard from "./dashboard/Dashboard";
 import theme from './styles/theme';
+import AdminRoute from "./admin-dashboard/AdminRoute";
+import AdminDashboard from "./admin-dashboard/AdminDashboard";
 
 function App() {
     const actions = useActions();
@@ -18,6 +20,7 @@ function App() {
                 <CssBaseline/>
                 <MainNavigation/>
                 <Switch>
+                    <AdminRoute path='/admin/dashboard' component={AdminDashboard} />
                     <PrivateRoute path='/dashboard' component={Dashboard}/>
                     <Route path='/register' render={props => <Login register={true} {...props} />}/>
                     <Route exact path='/' component={Login}/>
