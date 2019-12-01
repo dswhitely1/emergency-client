@@ -5,6 +5,7 @@ import {LOGOUT} from "../auth/authTypes";
 const initialState = {
     users: [],
     profiles: [],
+    messages: [],
     selectedProfile: {
         profile: {},
         employment: [],
@@ -24,6 +25,7 @@ const fetchUserProfileSuccess = (state, payload) => ({
     errors: null,
     selectedProfile: {...payload}
 });
+const fetchMessagesSuccess = (state, payload) => ({...state, isLoading: false, messages: payload, errors: null})
 const adminFail = (state, payload) => ({...state, isLoading: false, errors: payload});
 const logout = () => initialState;
 
@@ -37,5 +39,8 @@ export default createReducer(initialState, {
     [LOGOUT]: logout,
     [types.FETCH_PROFILES_START]: adminStart,
     [types.FETCH_PROFILES_SUCCESS]: fetchProfilesSuccess,
-    [types.FETCH_PROFILES_FAILURE]: adminFail
+    [types.FETCH_PROFILES_FAILURE]: adminFail,
+    [types.FETCH_MESSAGES_START]: adminStart,
+    [types.FETCH_MESSAGES_SUCCESS]: fetchMessagesSuccess,
+    [types.FETCH_MESSAGES_FAILURE]: adminFail,
 })

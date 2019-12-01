@@ -6,7 +6,7 @@ import {useEducationActions} from "./education/useEducationActions";
 import {useReferenceActions} from "./references/useReferenceActions";
 import {useAdminActions} from "./admin/useAdminActions";
 import {useWeatherActions} from "./weather/useWeatherActions";
-
+import {useMessageActions} from "./messages/useMessageActions";
 
 export const useActions = () => {
     const auth = useAuthActions();
@@ -16,6 +16,7 @@ export const useActions = () => {
     const education = useEducationActions();
     const reference = useReferenceActions();
     const admin = useAdminActions();
-    const weather = useWeatherActions()
-    return {auth, nav, profile, employment, education, reference, admin, weather}
+    const weather = useWeatherActions();
+    const message = useMessageActions();
+    return {auth, nav, profile, employment, education, reference, admin, weather, message}
 };
