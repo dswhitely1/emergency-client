@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import jwtDecode from 'jwt-decode';
+import Loader from 'react-loader-spinner';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -133,7 +134,7 @@ function Login({register, history: {push}}) {
                         disabled={isLoading}
                         className={classes.submit}
                     >
-                        {register ? 'Sign Up' : 'Sign In'}
+                        {isLoading ? <Loader type='ThreeDots' color='#670300' height={20} width={20} /> : register ? 'Sign Up' : 'Sign In'}
                     </Button>
                     <Button
                         type='button'

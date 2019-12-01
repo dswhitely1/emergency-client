@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../contexts/ActionsContext";
 import Button from "@material-ui/core/Button";
+import HomePageButtons from './buttons/HomePageButtons';
 
 const drawerWidth = 240;
 
@@ -50,7 +51,7 @@ function MainNavigation() {
     const actions = useContext(ActionsContext);
     return (
         <div className={classes.root}>
-            <AppBar position='static' className={clsx(classes.appBar, {[classes.appBarShift]: isOpen})}>
+            <AppBar position='sticky' className={clsx(classes.appBar, {[classes.appBarShift]: isOpen})}>
                 <Toolbar>
                     {isAuth && !isAdmin &&
                     <IconButton
@@ -65,6 +66,8 @@ function MainNavigation() {
                     <Typography variant='h6' className={classes.title}>
                         Emergency Electric INC
                     </Typography>
+                    <Button color='inherit' component={RouterLink} to='/'>Home</Button>
+                    {!isAuth && <HomePageButtons />}
                     {isAdmin && isAuth &&
                     <Button color='inherit' component={RouterLink} to='/admin/dashboard'>Dashboard</Button>}
                     {isAuth && <Button onClick={actions.auth.logout} color='inherit'>Logout</Button>}

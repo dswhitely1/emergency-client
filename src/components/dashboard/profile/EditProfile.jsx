@@ -8,6 +8,7 @@ import {parseDate} from "../../utils/parseDate";
 import ConfirmDialog from "../../../shared/ConfirmDialog";
 import {useStyles} from "../../styles/useStyles";
 import NavigationLinks from "../shared/NavigationLinks";
+import Loader from "react-loader-spinner";
 
 
 function EditProfile({history: {push}}) {
@@ -318,7 +319,7 @@ function EditProfile({history: {push}}) {
                     <div className={classes.buttons}>
                         <Button color='primary' onClick={reset} disabled={isLoading}>Reset</Button>
                         <Button color='primary' type='submit'
-                                disabled={isLoading}>{update ? 'Update' : 'Save'}</Button>
+                                disabled={isLoading}>{isLoading ? <Loader type='ThreeDots' color='#670300' height={20} width={20} /> : update ? 'Update' : 'Save'}</Button>
                     </div>
                 </form>
                 <Divider className={classes.appSpacing}/>

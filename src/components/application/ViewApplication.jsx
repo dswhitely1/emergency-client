@@ -12,7 +12,6 @@ import {useStyles} from "../styles/useStyles";
 
 function ViewApplication({values, employment, education, reference}) {
     const classes = useStyles();
-    console.log(values);
     return (
         <Container maxWidth='lg'>
             <Paper className={classes.root}>

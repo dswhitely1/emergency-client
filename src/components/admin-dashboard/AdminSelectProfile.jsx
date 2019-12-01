@@ -56,7 +56,7 @@ function AdminSelectProfile() {
             }
         }))
     }, [employment]);
-    console.log(userProfile);
+
     return (
         <>
             <Container maxWidth='lg'>

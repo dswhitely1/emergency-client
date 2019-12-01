@@ -1,10 +1,11 @@
 import React, {useContext, useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Container, Paper, TextField, Typography, Divider, Button} from "@material-ui/core";
+import {Button, Container, Divider, Paper, TextField, Typography} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {ActionsContext} from "../../../contexts/ActionsContext";
 import {useForm} from "../../../hooks/useForm";
 import ConfirmDialog from "../../../shared/ConfirmDialog";
+import Loader from "react-loader-spinner";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,10 +37,10 @@ function AddReference(props) {
         name: '',
         relationship: '',
         years: '',
-        phoneNumber: ''        
+        phoneNumber: ''
     }, doSubmit);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         if (edit) {
             const editingItem = reference.filter(item => item.id.toString() === props.match.params.id)[0];
             setValues(editingItem);
@@ -67,7 +68,7 @@ function AddReference(props) {
                     variant='h4'
                     className={classes.title}
                 >
-                    {`${edit ? 'Update':'Add New'} Reference Record`}
+                    {`${edit ? 'Update' : 'Add New'} Reference Record`}
                 </Typography>
                 <form onSubmit={submit} className={classes.formControl}>
                     <TextField
@@ -115,10 +116,12 @@ function AddReference(props) {
                         value={values.phoneNumber}
                         onChange={change}
                     />
-                    <Divider className={classes.divider} />
+                    <Divider className={classes.divider}/>
                     <div className={classes.buttons}>
                         <Button color='primary' onClick={reset} disabled={isLoading}>Reset</Button>
-                        <Button color='primary' type='submit' disabled={isLoading}>{edit ? 'Update' : 'Save'}</Button>
+                        <Button color='primary' type='submit' disabled={isLoading}>{isLoading ?
+                            <Loader type='ThreeDots' color='#670300' height={20}
+                                    width={20}/> : edit ? 'Update' : 'Save'}</Button>
                     </div>
                 </form>
             </Paper>
