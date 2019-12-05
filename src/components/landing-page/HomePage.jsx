@@ -7,6 +7,7 @@ import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import Footer from "./pages/Footer";
 import PhoneNumber from "./pages/PhoneNumber";
+import HomePageLinks from "./pages/HomePageLinks";
 
 function HomePage() {
     return (

@@ -40,6 +40,18 @@ export const Section = styled.section`
 export const StyledContainer = styled(Container)`
     text-align: center;
     
+    ${props => props.header && css`
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      height: 85vh;
+      
+      @media (min-width: 992px) {
+        height: auto;
+      }
+`}
+       
     ${props => props.top && css`
       margin-top: 64px;
 `}
@@ -149,11 +161,36 @@ export const StyledSpace = styled.div`
 
 export const StyledEmergencyButton = styled(Button)`
   position: fixed;
-  right: 125px;
+  right: 75px;
   top: 75px;
   z-index: 2000;
   
   @media (min-width: 992px) {
     right: 15px;
+  }
+`;
+
+
+export const HomePageLinkContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  width: 100%;
+  
+  @media (min-width: 992px) {
+    display: none;
+  }
+`;
+
+export const DesktopOnlyView = styled.div`
+  display: none;
+  @media (min-width: 992px) {
+    display: block;
+  }
+`;
+
+export const MobileOnlyView = styled.div`
+  @media (min-width: 992px) {
+    display: none;
   }
 `;
