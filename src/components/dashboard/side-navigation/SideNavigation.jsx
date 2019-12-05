@@ -43,7 +43,7 @@ function SideNavigation() {
     const {isOpen} = useSelector(state => state.nav);
     const actions = useContext(ActionsContext);
     return (
-        <Drawer className={classes.drawer} variant="permanent" anchor="left" open={isOpen}
+        <Drawer className={classes.drawer} open={isOpen}
                 classes={{paper: classes.drawerPaper}}>
             <div className={classes.drawerHeader}>
                 <IconButton onClick={actions.nav.toggleDrawer}>

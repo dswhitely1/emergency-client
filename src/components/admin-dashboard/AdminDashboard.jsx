@@ -31,7 +31,7 @@ function AdminDashboard() {
     }, []);
 
     return (
-        <StyledContainer max-Width='lg' description>
+        <StyledContainer max-Width='lg' top>
             <StyledTypography title variant='h4' component='h1'>Emergency Electric INC</StyledTypography>
             <Route exact path='/admin/dashboard/applications' component={AdminSelectProfile}/>
             <Route exact path='/admin/dashboard/messages' component={AdminMessage}/>

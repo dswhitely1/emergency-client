@@ -1,5 +1,5 @@
 import React from "react";
-import {MuiThemeProvider} from "@material-ui/core/styles";
+import {MuiThemeProvider, StylesProvider} from "@material-ui/core/styles";
 import {Route, Switch} from 'react-router-dom';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MainNavigation from "./navigation/MainNavigation";
@@ -16,19 +16,21 @@ import HomePage from "./landing-page/HomePage";
 function App() {
     const actions = useActions();
     return (
-        <MuiThemeProvider theme={theme}>
-            <ActionsProvider value={actions}>
-                <CssBaseline/>
-                <MainNavigation/>
-                <Switch>
-                    <AdminRoute path='/admin/dashboard' component={AdminDashboard} />
-                    <PrivateRoute path='/dashboard' component={Dashboard}/>
-                    <Route path='/register' render={props => <Login register={true} {...props} />}/>
-                    <Route path='/login' component={Login}/>
-                    <Route exact path='/' component={HomePage} />
-                </Switch>
-            </ActionsProvider>
-        </MuiThemeProvider>
+        <StylesProvider injectFirst>
+            <MuiThemeProvider theme={theme}>
+                <ActionsProvider value={actions}>
+                    <CssBaseline/>
+                    <MainNavigation/>
+                    <Switch>
+                        <AdminRoute path='/admin/dashboard' component={AdminDashboard}/>
+                        <PrivateRoute path='/dashboard' component={Dashboard}/>
+                        <Route path='/register' render={props => <Login register={true} {...props} />}/>
+                        <Route path='/login' component={Login}/>
+                        <Route exact path='/' component={HomePage}/>
+                    </Switch>
+                </ActionsProvider>
+            </MuiThemeProvider>
+        </StylesProvider>
     )
 }
 

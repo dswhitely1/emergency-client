@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.emergencyelectricinc.com",
   "dependencies": {
     "@material-ui/core": "^4.7.0",
     "@material-ui/icons": "^4.5.1",
@@ -46,3 +47,4 @@
     "redux-logger": "^3.0.6"
   }
 }
+

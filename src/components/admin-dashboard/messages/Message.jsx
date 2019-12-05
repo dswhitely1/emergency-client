@@ -14,8 +14,12 @@ const useStyles = makeStyles(theme => ({
     },
     footerStyle: {
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        flexDirection: 'column',
+        [theme.breakpoints.up('md')]: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        }
     },
     spacing: {
         margin: theme.spacing(2)

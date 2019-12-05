@@ -15,17 +15,23 @@ import Paper from "@material-ui/core/Paper";
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import jwtDecode from 'jwt-decode';
 import Loader from 'react-loader-spinner';
+import Logo from '../../assests/EmergencyElectricLogo.svg'
 
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
-        padding: theme.spacing(4),
+        padding: theme.spacing(3),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
     },
+    notice: {
+        marginBottom: theme.spacing(2),
+        padding: theme.spacing(3),
+        width: '100%'
+    },
     avatar: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
         backgroundColor: theme.palette.secondary.main
     },
     form: {
@@ -37,6 +43,14 @@ const useStyles = makeStyles(theme => ({
     },
     reset: {
         margin: theme.spacing(1, 0, 2)
+    },
+    image: {
+        width: '100%',
+        height: 'auto',
+        borderRadius: theme.spacing(1)
+    },
+    title: {
+        textAlign: 'center'
     }
 }));
 
@@ -77,6 +91,11 @@ function Login({register, history: {push}}) {
     return (
         <Container component="main" maxWidth='sm'>
             <Paper className={classes.paper}>
+                <img src={Logo} alt='Emergency Electric Logo' className={classes.image}/>
+                <Paper className={classes.notice}>
+                    <Typography color='primary' className={classes.title}>Please Login or Register to Continue...</Typography>
+                </Paper>
+
                 <Avatar className={classes.avatar}>
                     <AccountCircleSharpIcon/>
                 </Avatar>
@@ -149,12 +168,13 @@ function Login({register, history: {push}}) {
                 </form>
                 <Grid container>
                     <Grid item>
-                        <Link component={RouterLink} to={register ? '/' : '/register'} variant='body2'>
+                        <Link component={RouterLink} to={register ? '/login' : '/register'} variant='body2'>
                             {register ? `Have an account?  Click here to Login` : `Don't have an account? Click here to register.`}
                         </Link>
                     </Grid>
                 </Grid>
             </Paper>
+
         </Container>
     )
 }

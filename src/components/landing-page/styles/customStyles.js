@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components';
 import headerImage from '../../../assests/electrical-electrician-electricity-1435183.jpg';
-import {Container, Paper, TextField, Typography} from "@material-ui/core";
+import {Button, Container, Grid, Paper, TextField, Typography} from "@material-ui/core";
 
 export const Section = styled.section`
   padding: 8rem 0;
@@ -40,23 +40,26 @@ export const Section = styled.section`
 export const StyledContainer = styled(Container)`
     text-align: center;
     
+    ${props => props.top && css`
+      margin-top: 64px;
+`}
     ${props => props.description && css`
-      width: 83% !important;
+      width: 83%;
     `}
 `;
 
 export const StyledTypography = styled(Typography)`
-    margin-bottom: 24px !important;
+    margin-bottom: 24px;
     
     ${props => props.header && css`
-      font-weight: bolder !important;
+      font-weight: bolder;
     `}
     ${props => props.spacing && css`
-      margin: 0 !important;
+      margin: 0;
       padding-top: 32px;
     `}  
     ${props => props.noMargin && css`
-        margin: 0 !important;
+        margin: 0;
     `}
     
     ${props => props.title && css`
@@ -86,7 +89,13 @@ export const StyledPaper = styled(Paper)`
 
 export const ButtonContainer = styled.div`
   margin: 24px 0;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 992px) {
+    flex-direction: row;
+  }
   ${props => props.form && css`
     display: flex;
     justify-content: flex-end;
@@ -106,7 +115,7 @@ export const StyledTextField = styled(TextField)`
 `;
 
 export const Form = styled.form`
-  display: flex,
+  display: flex;
   flex-direction: column;
   margin: 16px 0;
 `;
@@ -128,4 +137,23 @@ export const StyledFooter = styled.footer`
     background-color: #222222;
     color: #b48a66;
   `}
+`;
+
+export const StyledGrid = styled(Grid)`
+  margin-bottom: 16px;
+`;
+
+export const StyledSpace = styled.div`
+  margin: 16px 0;
+`;
+
+export const StyledEmergencyButton = styled(Button)`
+  position: fixed;
+  right: 125px;
+  top: 75px;
+  z-index: 2000;
+  
+  @media (min-width: 992px) {
+    right: 15px;
+  }
 `;
