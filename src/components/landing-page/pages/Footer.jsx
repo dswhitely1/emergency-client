@@ -9,11 +9,11 @@ function Footer() {
                 <Grid container>
                     <StyledGrid xs={12} sm={4}>
                         <Typography>Emergency Electric INC</Typography>
-                        <Typography>7925 Main St NE</Typography>
+                        <Typography>7520 E. Pennington St. NE</Typography>
                         <Typography>Lanesville, IN 47136</Typography>
                     </StyledGrid>
                     <StyledGrid xs={12} sm={4}>
-                        <Typography>Office: (812) 952-6014</Typography>
+                        <Typography>Office: (812) 952-6003</Typography>
                         <Typography>Emergency: (502) 727-4823</Typography>
                         <StyledSpace />
                         <Typography>Office Hours</Typography>
