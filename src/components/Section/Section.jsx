@@ -11,12 +11,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     margin: theme.spacing(6, 6),
     opacity: 0.9,
+    transition: 'opacity 500ms ease-out',
     '&:hover,&:focus': {
       opacity: 1,
+      transition: 'opacity 500ms ease-in',
     },
     [theme.breakpoints.down('sm')]: {
       opacity: 1,
       margin: 0,
+    },
+    '&:last-child': {
+      marginBottom: 0,
     },
   },
   invertedNot: {

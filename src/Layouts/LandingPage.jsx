@@ -8,6 +8,7 @@ import headerImage from 'assets/electrical-electrician-electricity-1435183.jpg';
 import { Hidden } from '@material-ui/core';
 import Contact from 'Views/HomePage/Contact';
 import Goals from '../Views/HomePage/Goals';
+import LandingPageNavBar from '../components/NavBars/LandingPageNavBar';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    height: '100%',
+    height: 'calc(100% - 192px)',
     [theme.breakpoints.down('sm')]: {
       background: 'none',
     },
@@ -26,14 +27,17 @@ const useStyles = makeStyles((theme) => ({
 function LandingPage(props) {
   const classes = useStyles();
   return (
-    <div className={classes.background}>
-      <Header />
-      <About />
-      <Services />
-      <Testimonials />
-      <Goals />
-      <Contact />
-    </div>
+    <>
+      <LandingPageNavBar />
+      <div className={classes.background}>
+        <Header />
+        <About />
+        <Services />
+        <Testimonials />
+        <Goals />
+        <Contact />
+      </div>
+    </>
   );
 }
 

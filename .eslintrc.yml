@@ -28,5 +28,6 @@ rules: {
          camelcase: warn,
          react/jsx-curly-newline: off,
          import/no-unresolved: off,
-         react/require-default-props: off
+         react/require-default-props: off,
+         react/jsx-one-expression-per-line: off
 }

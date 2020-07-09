@@ -22,6 +22,16 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'uppercase',
     margin: theme.spacing(2, 0),
   },
+  footer: {
+    marginBottom: theme.spacing(1),
+  },
+  branding: {
+    margin: 0,
+    paddingBottom: theme.spacing(2),
+  },
+  flex: {
+    flexGrow: 1,
+  },
 }));
 
 function CustomTypography({
@@ -31,6 +41,9 @@ function CustomTypography({
   title,
   children,
   className,
+  footer,
+  branding,
+  flex,
   ...rest
 }) {
   const classes = useStyles();
@@ -40,6 +53,9 @@ function CustomTypography({
     [classes.spacing]: spacing,
     [classes.noMargin]: noMargin,
     [classes.title]: title,
+    [classes.footer]: footer,
+    [classes.branding]: branding,
+    [classes.flex]: flex,
     [className]: className !== undefined,
   });
 
@@ -57,6 +73,9 @@ CustomTypography.propTypes = {
   title: PropTypes.bool,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  footer: PropTypes.bool,
+  branding: PropTypes.bool,
+  flex: PropTypes.bool,
 };
 
 export default CustomTypography;

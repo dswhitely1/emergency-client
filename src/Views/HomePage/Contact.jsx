@@ -47,7 +47,7 @@ function Contact() {
           <Typography variant="h2">Send Us A Message!</Typography>
           <form onSubmit={submit}>
             <Card>
-              <GridContainer form>
+              <GridContainer>
                 <GridItem xs={12} md={4} form>
                   <TextField
                     name="firstName"
