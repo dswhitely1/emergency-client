@@ -7,6 +7,18 @@ import headerImage from 'assets/electrical-electrician-electricity-1435183.jpg';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(10, 0),
+    borderRadius: theme.spacing(5),
+    border: '1px solid #ddd',
+    backgroundColor: 'inherit',
+    margin: theme.spacing(6, 0),
+    opacity: 0.8,
+    '&:hover,&:focus': {
+      opacity: 1,
+    },
+  },
+  invertedNot: {
+    backgroundColor: '#f9f7f5',
+    opacity: 0.8,
   },
   inverted: {
     backgroundColor: '#351a1a',
@@ -21,10 +33,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     height: 'auto',
-    background: `linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0, rgba(255,255,255,0.1) 100%), url(${headerImage})`,
-    backgroundPosition: 'center center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
     [theme.breakpoints.up('md')]: {
       height: '100vh',
     },
@@ -37,6 +45,7 @@ function Section({ inverted, header, children, className, ...rest }) {
     [classes.root]: true,
     [classes.inverted]: inverted,
     [classes.header]: header,
+    [classes.invertedNot]: !inverted && !header,
     [className]: className !== undefined,
   });
 

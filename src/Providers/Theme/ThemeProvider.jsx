@@ -1,12 +1,19 @@
 import React from 'react';
-import { StylesProvider, MuiThemeProvider } from '@material-ui/core';
+import {
+  StylesProvider,
+  MuiThemeProvider,
+  CssBaseline,
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import theme from './theme';
 
 function ThemeProvider({ children }) {
   return (
     <StylesProvider injectFirst>
-      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </StylesProvider>
   );
 }

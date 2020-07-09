@@ -3,13 +3,12 @@ import Section from 'components/Section/Section';
 import Container from 'components/Container/Container';
 import Typography from 'components/Typography/Typography';
 import Buttons from 'Views/HomePage/Buttons';
-import { StyledTypography } from '../../components/landing-page/styles/customStyles';
 
 function About() {
   return (
     <Section id="about">
       <Container description maxWidt="lg">
-        <Typography variant="h3">Why Choose Us</Typography>
+        <Typography variant="h2">Why Choose Us</Typography>
         <Typography header>
           With many years of experience in the electrical industry, we take
           pride in our professionalism, punctuality, and customer service.

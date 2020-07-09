@@ -9,10 +9,10 @@ function Header(props) {
   return (
     <Section header>
       <Container header>
-        <Typography variant="h2" component="h1" color="primary">
+        <Typography variant="h1" color="primary">
           Emergency Electric Inc
         </Typography>
-        <Typography variant="h5" component="h3" color="primary">
+        <Typography variant="h4" color="primary">
           24 Hour Service | Licensed and Insured | Residential and Commercial
         </Typography>
         <Button
