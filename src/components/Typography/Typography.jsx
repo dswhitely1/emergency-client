@@ -30,6 +30,7 @@ function CustomTypography({
   noMargin,
   title,
   children,
+  className,
   ...rest
 }) {
   const classes = useStyles();
@@ -39,6 +40,7 @@ function CustomTypography({
     [classes.spacing]: spacing,
     [classes.noMargin]: noMargin,
     [classes.title]: title,
+    [className]: className !== undefined,
   });
 
   return (
@@ -54,6 +56,7 @@ CustomTypography.propTypes = {
   noMargin: PropTypes.bool,
   title: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 export default CustomTypography;

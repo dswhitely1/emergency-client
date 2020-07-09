@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
     [theme.breakpoints.up('md')]: {
       flexDirection: 'row',
     },
@@ -17,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
   form: {
     justifyContent: 'flex-end',
     alignItems: 'center',
+    marginBottom: 0,
+    marginTop: 16,
   },
 }));
 

@@ -7,18 +7,20 @@ import headerImage from 'assets/electrical-electrician-electricity-1435183.jpg';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(10, 0),
-    borderRadius: theme.spacing(5),
-    border: '1px solid #ddd',
     backgroundColor: 'inherit',
-    margin: theme.spacing(6, 0),
-    opacity: 0.8,
+    borderRadius: theme.spacing(1),
+    margin: theme.spacing(6, 6),
+    opacity: 0.9,
     '&:hover,&:focus': {
       opacity: 1,
+    },
+    [theme.breakpoints.down('sm')]: {
+      opacity: 1,
+      margin: 0,
     },
   },
   invertedNot: {
     backgroundColor: '#f9f7f5',
-    opacity: 0.8,
   },
   inverted: {
     backgroundColor: '#351a1a',
@@ -31,10 +33,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    margin: 0,
     height: 'auto',
+    opacity: 1,
     [theme.breakpoints.up('md')]: {
       height: '100vh',
+    },
+    [theme.breakpoints.down('sm')]: {
+      background: `linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0, rgba(255,255,255,0.1) 100%), url(${headerImage})`,
+      backgroundPosition: 'center center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
     },
   },
 }));

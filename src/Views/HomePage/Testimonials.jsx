@@ -16,7 +16,7 @@ function Testimonials() {
         </Typography>
         <Typography variant="h2">Hear from our Customers</Typography>
         <GridContainer>
-          <GridItem xs={0} sm />
+          <GridItem sm />
           <GridItem xs={12} sm={5}>
             <Card>
               <Typography>
@@ -27,7 +27,7 @@ function Testimonials() {
               <cite>Arlene W.</cite>
             </Card>
           </GridItem>
-          <GridItem xs={0} sm />
+          <GridItem sm />
           <GridItem xs={12} sm={5}>
             <Card>
               <Typography>
@@ -40,7 +40,7 @@ function Testimonials() {
               <cite>John Robertson</cite>
             </Card>
           </GridItem>
-          <GridItem xs={0} sm />
+          <GridItem sm />
         </GridContainer>
         <Buttons color="primary" desc="Our Goals" link="#goals" />
       </Container>

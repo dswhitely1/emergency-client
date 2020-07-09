@@ -7,7 +7,7 @@ import Buttons from 'Views/HomePage/Buttons';
 function About() {
   return (
     <Section id="about">
-      <Container description maxWidt="lg">
+      <Container description maxWidth="lg">
         <Typography variant="h2">Why Choose Us</Typography>
         <Typography header>
           With many years of experience in the electrical industry, we take

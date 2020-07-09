@@ -8,12 +8,16 @@ const useStyles = makeStyles((theme) => ({
   grid: {
     padding: theme.spacing(0, 2),
   },
+  form: {
+    marginBottom: theme.spacing(1),
+  },
 }));
 
-function GridItem({ children, className, ...rest }) {
+function GridItem({ children, className, form, ...rest }) {
   const classes = useStyles();
   const gridItemClasses = cx({
     [classes.grid]: true,
+    [classes.form]: form,
     [className]: className !== undefined,
   });
 
@@ -25,8 +29,9 @@ function GridItem({ children, className, ...rest }) {
 }
 
 GridItem.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
+  form: PropTypes.bool,
 };
 
 export default GridItem;

@@ -18,7 +18,7 @@ function Services() {
         </Typography>
         <Typography variant="h2">We Specialize In</Typography>
         <GridContainer>
-          <GridItem xs={0} sm />
+          <GridItem sm />
           <GridItem xs={12} sm={5}>
             <Image src={residential} alt="Residential Services" />
             <Typography variant="h4">Residential</Typography>
@@ -28,7 +28,7 @@ function Services() {
               installing recessed lights in your condo.
             </Typography>
           </GridItem>
-          <GridItem xs={0} sm />
+          <GridItem sm />
           <GridItem xs={12} sm={5}>
             <Image src={commercial} alt="Commercial Services" />
             <Typography variant="h4">Commercial</Typography>
@@ -37,7 +37,7 @@ function Services() {
               by our commercial electrical contractors.
             </Typography>
           </GridItem>
-          <GridItem xs={0} sm />
+          <GridItem sm />
         </GridContainer>
         <Buttons
           color="secondary"
