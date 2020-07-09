@@ -18,13 +18,17 @@
     "react-scripts": "3.2.0",
     "react-scrollchor": "^6.0.0",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
     "styled-components": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write \"src/**/*.js(x)\"",
+    "lint": "eslint --fix \"src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,9 +45,22 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn lint"
+    }
+  },
   "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.6",
+    "husky": "^4.2.5",
     "node-sass": "^4.13.0",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6"
+    "prettier": "^2.0.5"
   }
 }
