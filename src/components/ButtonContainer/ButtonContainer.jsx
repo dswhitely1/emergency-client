@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  buttonContainer: {
     margin: theme.spacing(3, 0),
     display: 'flex',
     flexDirection: 'column',
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 function ButtonContainer({ form, children, ...rest }) {
   const classes = useStyles();
   const buttonContainerClasses = cx({
-    [classes.root]: true,
+    [classes.buttonContainer]: true,
     [classes.form]: form,
   });
 

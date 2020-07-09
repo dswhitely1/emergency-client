@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  container: {
     textAlign: 'center',
   },
   header: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 function CustomContainer({ header, top, description, children, ...rest }) {
   const classes = useStyles();
   const customContainerClasses = cx({
-    [classes.root]: true,
+    [classes.container]: true,
     [classes.header]: header,
     [classes.top]: top,
     [classes.description]: description,

@@ -31,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Section({ inverted, header, children, ...rest }) {
+function Section({ inverted, header, children, className, ...rest }) {
   const classes = useStyles();
   const sectionClasses = cx({
     [classes.root]: true,
     [classes.inverted]: inverted,
     [classes.header]: header,
+    [className]: className !== undefined,
   });
 
   return (
@@ -50,6 +51,7 @@ Section.propTypes = {
   inverted: PropTypes.bool,
   header: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 export default Section;

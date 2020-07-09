@@ -7,7 +7,7 @@ import { StyledTypography } from '../../components/landing-page/styles/customSty
 
 function About() {
   return (
-    <Section>
+    <Section id="about">
       <Container description maxWidt="lg">
         <Typography variant="h3">Why Choose Us</Typography>
         <Typography header>
