@@ -26,5 +26,6 @@ rules: {
          no-unused-expressions: off,
          react/destructuring-assignment: off,
          camelcase: warn,
-         react/jsx-curly-newline: off
+         react/jsx-curly-newline: off,
+         import/no-unresolved: off
 }
