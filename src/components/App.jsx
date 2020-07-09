@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import LandingPage from './Layouts/LandingPage';
+import LandingPage from '../Layouts/LandingPage';
 
 function App() {
   return (

@@ -7,8 +7,8 @@ import {
   StyledTypography,
 } from '../styles/customStyles';
 import Buttons from './Buttons';
-import residential from '../../../assests/erik-mclean-1117932-unsplash.jpg';
-import commercial from '../../../assests/osama-saeed-1433239-unsplash.jpg';
+import residential from '../../../assets/erik-mclean-1117932-unsplash.jpg';
+import commercial from '../../../assets/osama-saeed-1433239-unsplash.jpg';
 
 function Services() {
   return (

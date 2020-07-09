@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import headerImage from '../../../assests/electrical-electrician-electricity-1435183.jpg';
+import headerImage from '../../../assets/electrical-electrician-electricity-1435183.jpg';
 
 export const Section = styled.section`
   padding: 8rem 0;

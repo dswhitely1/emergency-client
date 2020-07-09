@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from 'components/Views/HomePage/Header';
+import Header from 'Views/HomePage/Header';
 
 function LandingPage(props) {
   return (

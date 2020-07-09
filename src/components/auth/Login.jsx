@@ -15,7 +15,7 @@ import jwtDecode from 'jwt-decode';
 import Loader from 'react-loader-spinner';
 import { ActionsContext } from '../../contexts/ActionsContext';
 import { useForm } from '../../hooks/useForm';
-import Logo from '../../assests/EmergencyElectricLogo.svg';
+import Logo from '../../assets/EmergencyElectricLogo.svg';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
