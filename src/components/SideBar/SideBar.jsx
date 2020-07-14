@@ -300,11 +300,18 @@ const useStyles = makeStyles((theme) => ({
   caretActive: {
     transform: 'rotate(180deg)',
   },
+  backgroundColor: {
+    color: theme.palette.common.white,
+    '&:after': {
+      background: theme.palette.common.black,
+      opacity: 0.8,
+    },
+  },
   primary: {
     '&,&:hover,&:focus': {
       color: theme.palette.common.white,
-      backgroundColor: '#222222',
-      boxShadow: `0 4px 20px 0 rgba(0,0,0, 0.14), 0 7px 10px -5px rgba(0,0,0, 0.4)`,
+      backgroundColor: '#670300',
+      boxShadow: `0 4px 20px 0 rgba(103,3,0, 0.14), 0 7px 10px -5px rgba(0,0,0, 0.4)`,
     },
   },
   sideBarWrapper: {
@@ -382,7 +389,7 @@ function SideBar({
   const drawerPaperClasses = cx({
     [classes.drawerPaper]: true,
     [classes.drawerPaperMini]: miniActive,
-    [classes.primary]: true,
+    [classes.backgroundColor]: true,
   });
 
   const sideBarWrapperClasses = cx({
@@ -405,7 +412,7 @@ function SideBar({
             logo={EELogo}
             logoText="Emergency Electric Inc"
             classes={classes}
-            miniActive
+            miniActive={miniActive}
           />
         </Drawer>
       </Hidden>
@@ -421,7 +428,16 @@ function SideBar({
             logo={EELogo}
             miniActive={miniActive}
           />
-          <SideBarWrapper className={sideBarWrapperClasses} />
+          <SideBarWrapper
+            className={sideBarWrapperClasses}
+            classes={classes}
+            routes={routes}
+            getCollapseInitialState={getCollapseInitialState}
+            collapseState={collapseState}
+            activeRoute={activeRoute}
+            openCollapse={openCollapse}
+            {...rest}
+          />
         </Drawer>
       </Hidden>
     </div>

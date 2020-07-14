@@ -1,9 +1,10 @@
 import React, { useState, useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'perfect-scrollbar';
+import SideBarLinks from './SideBarLinks';
 
 let ps;
-function SideBarWrapper({ className, links }) {
+function SideBarWrapper({ className, ...rest }) {
   const sideBarWrapper = createRef();
   const [isWin] = useState(() => navigator.platform.indexOf('Win') > -1);
 
@@ -23,7 +24,7 @@ function SideBarWrapper({ className, links }) {
 
   return (
     <div className={className} ref={sideBarWrapper}>
-      {links}
+      <SideBarLinks {...rest} />
     </div>
   );
 }

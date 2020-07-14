@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: 'calc(100% - 260px)',
     },
+    float: 'right',
     overflow: 'auto',
     position: 'relative',
     maxHeight: '100%',
@@ -107,7 +108,7 @@ function ApplicationLayout(props) {
 
   return (
     <div className={classes.wrapper}>
-      <SideBar routes={loggedOutRoutes} />
+      <SideBar routes={loggedOutRoutes} {...rest} />
       <div ref={mainPanel} className={mainPanelClasses}>
         <ApplicationPageNavBar />
         <Switch>

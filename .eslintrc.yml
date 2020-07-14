@@ -31,5 +31,6 @@ rules: {
          react/require-default-props: off,
          react/jsx-one-expression-per-line: off,
          react/forbid-prop-types: off,
-         no-restricted-syntax: warn
+         no-restricted-syntax: warn,
+         react/no-array-index-key: off
 }

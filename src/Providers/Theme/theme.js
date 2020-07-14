@@ -17,6 +17,13 @@ const overrides = {
       },
     },
   },
+  MuiLink: {
+    underlineHover: {
+      '&:hover': {
+        textDecoration: 'none',
+      },
+    },
+  },
 };
 
 const typography = {
