@@ -111,12 +111,15 @@ function ApplicationLayout(props) {
       <SideBar routes={loggedOutRoutes} {...rest} />
       <div ref={mainPanel} className={mainPanelClasses}>
         <ApplicationPageNavBar />
-        <Switch>
-          <Route path="/now-hiring/login" component={LoginPage} />
-          <Route path="/now-hiring/register" component={RegisterPage} />
-          <Redirect from="/now-hiring" to="/now-hiring/register" />
-        </Switch>
-
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <Switch>
+              <Route path="/now-hiring/login" component={LoginPage} />
+              <Route path="/now-hiring/register" component={RegisterPage} />
+              <Redirect from="/now-hiring" to="/now-hiring/register" />
+            </Switch>
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
