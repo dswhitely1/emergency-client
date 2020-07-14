@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     transition: 'all 150ms ease 0s',
   },
   danger: {
-    backgroundColor: theme.palette.danger,
+    backgroundColor: theme.palette.error.main,
     color: theme.palette.common.white,
     border: 0,
     borderRadius: 3,
@@ -135,7 +135,7 @@ function ApplicationPageNavBar({
       <Toolbar className={classes.container}>
         <Hidden smDown implementation="css">
           <div className={classes.sidebarMinimize}>
-            <Button justIcon onClick={sideBarMinimize}>
+            <Button justIcon round color="white" onClick={sideBarMinimize}>
               {miniActive ? (
                 <ViewList className={classes.sideBarMiniIcon} />
               ) : (
@@ -145,7 +145,7 @@ function ApplicationPageNavBar({
           </div>
         </Hidden>
         <div className={classes.flex}>
-          <Button href="#" className={classes.title} color="transparent">
+          <Button className={classes.title} color="transparent">
             {brandText}
           </Button>
         </div>

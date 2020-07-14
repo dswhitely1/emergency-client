@@ -11,14 +11,14 @@ const colorButton = (color) => ({
     color,
   )}, 0.14), 0 3px 1px -2px rgba(${hexToRgb(
     color,
-  )}, 0.2), 0 1px 5px 0 rgba(${hexToRgb(color)}, 0.12`,
+  )}, 0.2), 0 1px 5px 0 rgba(${hexToRgb(color)}, 0.12)`,
   '&:hover,&:focus': {
     backgroundColor: color,
     boxShadow: `0 14px 26px -12px rgba(${hexToRgb(
       color,
     )}, 0.42), 0 4px 23px 0 rgba(${hexToRgb(
       '#000',
-    )}, 0.12), 0 8px 10px -5px rgba(${hexToRgb(color)}, 0.2`,
+    )}, 0.12), 0 8px 10px -5px rgba(${hexToRgb(color)}, 0.2)`,
   },
 });
 
@@ -33,11 +33,12 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 'auto',
     minWidth: 'auto',
     backgroundColor: '#999',
+    color: theme.palette.common.white,
     boxShadow: `0 2px 2px 0 rgba(${hexToRgb(
       '#999',
-    )},0.14), 0 3px 1px -2px rgba(${hexToRgb(
+    )}, 0.14), 0 3px 1px -2px rgba(${hexToRgb(
       '#999',
-    )},0.2), 0 1px 5px 0 rgba(${hexToRgb('#999')},0.12)`,
+    )}, 0.2), 0 1px 5px 0 rgba(${hexToRgb('#999')}, 0.12)`,
     border: 'none',
     borderRadius: 3,
     position: 'relative',
@@ -59,10 +60,13 @@ const useStyles = makeStyles((theme) => ({
     '&:hover,&:focus': {
       color: theme.palette.common.white,
       backgroundColor: '#999',
-      boxShadow:
-        '0 14px 26px -12px rgba(153,153,153,0.42), 0 4px 23px 0 rgba(153,153,153,0.12), 0 8px 10px -5px rgba(153,153,153,0.2)',
+      boxShadow: `0 14px 26px -12px rgba(${hexToRgb(
+        '#999',
+      )}, 0.42), 0 4px 23px 0 rgba(${hexToRgb(
+        '#999',
+      )}, 0.12), 0 8px 10px -5px rgba(${hexToRgb('#999')}, 0.2)`,
     },
-    '& .fab,& .fas,&.far,& .fal,& .material-icons': {
+    '& .fab,& .fas,& .far,& .fal,& .material-icons': {
       position: 'relative',
       display: 'inline-block',
       top: 0,
@@ -81,11 +85,12 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 4,
       verticalAlign: 'middle',
     },
-    '&$justIcon': {
-      '&.fab,& .fas,& .far,& .fal,& .material-icons': {
+    '&justIcon': {
+      '& .fab,& .fas,& .far,& .fal,& .material-icons': {
         marginTop: 0,
         position: 'absolute',
         width: '100%',
+        transform: 'none',
         left: 0,
         top: 0,
         height: '100%',
@@ -104,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
   warning: colorButton(theme.palette.warning.main),
   danger: colorButton(theme.palette.error.main),
   white: {
-    '&,&:hover,&:focus': {
+    '&,&:focus,&:hover': {
       backgroundColor: theme.palette.common.white,
       color: '#999',
     },
@@ -112,27 +117,29 @@ const useStyles = makeStyles((theme) => ({
   twitter: colorButton('#55acee'),
   facebook: colorButton('#3b5998'),
   google: colorButton('#dd4b39'),
-  linkedIn: colorButton('#0876b4'),
+  linkedIn: colorButton('#0976b4'),
   pinterest: colorButton('#cc2127'),
   youtube: colorButton('#e52d27'),
   tumblr: colorButton('#35465c'),
   behance: colorButton('#1769ff'),
-  dribble: colorButton('#ea4c89'),
+  dribbble: colorButton('#ea4c89'),
   reddit: colorButton('#ff4500'),
   github: {
     backgroundColor: '#333',
+    color: theme.palette.common.white,
     boxShadow: `0 2px 2px 0 rgba(${hexToRgb(
       '#555555',
     )}, 0.14), 0 3px 1px -2px rgba(${hexToRgb(
       '#555555',
-    )}, 0.2), 0 1px 5px 0 rgba(${hexToRgb('#555555')}, 0.12`,
-    '&:hover,&:focus': {
+    )}, 0.2), 0 1px 5px 0 rgba(${hexToRgb('#555555')}, 0.12)`,
+    '&:hover,&:focus,&:visited': {
       backgroundColor: '#333',
-      boxShadow: `0 14px 26px -12px rgba(${hexToRgb(
+      color: theme.palette.common.white,
+      boxShadow: `0 14px 26px 12px rgba(${hexToRgb(
         '#555555',
       )}, 0.42), 0 4px 23px 0 rgba(${hexToRgb(
         '#555555',
-      )}, 0.12), 0 8px 10px -5px rgba(${hexToRgb('#555555')}, 0.2`,
+      )}, 0.12), 0 8px 10px -5px rgba(${hexToRgb('#555555')}, 0.2)`,
     },
   },
   simple: {
@@ -143,23 +150,23 @@ const useStyles = makeStyles((theme) => ({
     },
     '&$primary': simpleColor(theme.palette.primary.main),
     '&$secondary': simpleColor(theme.palette.secondary.main),
-    '&$info': simpleColor(theme.palette.info.main),
-    '&$danger': simpleColor(theme.palette.error.main),
     '&$success': simpleColor(theme.palette.success.main),
+    '&$info': simpleColor(theme.palette.info.main),
     '&$warning': simpleColor(theme.palette.warning.main),
+    '&$danger': simpleColor(theme.palette.error.main),
     '&$twitter': simpleColor('#55acee'),
     '&$facebook': simpleColor('#3b5998'),
     '&$google': simpleColor('#dd4b39'),
-    '&$linkedIn': simpleColor('#0876b4'),
+    '&$linkedIn': simpleColor('#0976b4'),
     '&$pinterest': simpleColor('#cc2127'),
     '&$youtube': simpleColor('#e52d27'),
     '&$tumblr': simpleColor('#35465c'),
     '&$behance': simpleColor('#1769ff'),
-    '&$dribble': simpleColor('#ea4c89'),
+    '&$dribbble': simpleColor('#ea4c89'),
     '&$reddit': simpleColor('#ff4500'),
   },
   transparent: {
-    '&,&:focus,&:hover': {
+    '&,&:hover,&:focus': {
       color: 'inherit',
       background: 'transparent',
       boxShadow: 'none',
@@ -200,7 +207,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     '&,&:hover,&:focus': {
       backgroundColor: 'transparent',
-      color: '#333',
+      color: '#999',
       boxShadow: 'none',
     },
   },
@@ -245,6 +252,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const RegularButton = forwardRef((props, ref) => {
   const classes = useStyles();
+  console.log(classes);
   const {
     children,
     color,
@@ -260,8 +268,7 @@ const RegularButton = forwardRef((props, ref) => {
     muiClasses,
     ...rest
   } = props;
-  console.log(useStyles[color]);
-  const buttonClasses = cx({
+  const btnClasses = cx({
     [classes.button]: true,
     [classes[size]]: size,
     [classes[color]]: color,
@@ -273,9 +280,22 @@ const RegularButton = forwardRef((props, ref) => {
     [classes.justIcon]: justIcon,
     [className]: className !== undefined,
   });
+  console.log(btnClasses);
+  // const btnClasses = cx({
+  //   [classes.button]: true,
+  //   [classes[size]]: size,
+  //   [classes[color]]: color,
+  //   [classes.round]: round,
+  //   [classes.fullWidth]: fullWidth,
+  //   [classes.disabled]: disabled,
+  //   [classes.block]: block,
+  //   [classes.link]: link,
+  //   [classes.justIcon]: justIcon,
+  //   [className]: className !== undefined,
+  // });
 
   return (
-    <Button {...rest} ref={ref} classes={muiClasses} className={buttonClasses}>
+    <Button {...rest} ref={ref} classes={muiClasses} className={btnClasses}>
       {children}
     </Button>
   );
