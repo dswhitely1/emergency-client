@@ -19,7 +19,7 @@ function Header(props) {
           color="primary"
           variant="contained"
           component={RouterLink}
-          to="/login"
+          to="/now-hiring"
         >
           Apply Now
         </Button>

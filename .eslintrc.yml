@@ -29,5 +29,7 @@ rules: {
          react/jsx-curly-newline: off,
          import/no-unresolved: off,
          react/require-default-props: off,
-         react/jsx-one-expression-per-line: off
+         react/jsx-one-expression-per-line: off,
+         react/forbid-prop-types: off,
+         no-restricted-syntax: warn
 }
