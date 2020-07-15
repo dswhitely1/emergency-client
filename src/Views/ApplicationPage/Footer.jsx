@@ -135,4 +135,9 @@ function Footer({ fluid, white }) {
   );
 }
 
+Footer.propTypes = {
+  white: PropTypes.bool,
+  fluid: PropTypes.bool,
+};
+
 export default Footer;
