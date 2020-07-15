@@ -6,13 +6,9 @@ import Testimonials from 'Views/HomePage/Testimonials';
 import { makeStyles } from '@material-ui/core/styles';
 import headerImage from 'assets/electrical-electrician-electricity-1435183.jpg';
 import Contact from 'Views/HomePage/Contact';
-import PerfectScrollbar from 'perfect-scrollbar';
 import Goals from '../Views/HomePage/Goals';
 import LandingPageNavBar from '../components/NavBars/LandingPageNavBar';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import Footer from '../Views/HomePage/Footer';
-
-let ps;
 
 const useStyles = makeStyles((theme) => ({
   background: {

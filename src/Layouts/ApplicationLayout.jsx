@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import PerfectScrollbar from 'perfect-scrollbar';
 import cx from 'classnames';
 import EESmallLogo from 'assets/eeSmall.png';
 import loggedOutRoutes from 'Views/ApplicationPage/loggedOutRoutes';
@@ -10,7 +9,6 @@ import ApplicationPageNavBar from '../components/NavBars/ApplicationPageNavBar';
 import LoginPage from '../Views/ApplicationPage/LoginPage';
 import RegisterPage from '../Views/ApplicationPage/RegisterPage';
 import Footer from '../Views/ApplicationPage/Footer';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -55,37 +53,12 @@ function ApplicationLayout(props) {
   const [logo] = useState(EESmallLogo);
   const [logoText] = useState('Emergency Electric Inc');
   const [miniActive, setMiniActive] = useState(false);
-  const resizeFunction = () => {
-    if (window.innerWidth >= 960) {
-      setMobileOpen(false);
-    }
-  };
-  const [isWin] = useState(() => navigator.platform.indexOf('Win') > -1);
-  const mainPanel = createRef();
-  useEffect(() => {
-    if (isWin) {
-      ps = new PerfectScrollbar(mainPanel.current, {
-        suppressScrollY: false,
-        suppressScrollX: true,
-      });
-      document.body.style.overflow = 'hidden';
-    }
-    window.addEventListener('resize', resizeFunction);
-
-    return () => {
-      if (isWin) {
-        ps.destroy();
-      }
-      window.removeEventListener('resize', resizeFunction);
-    };
-  });
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const mainPanelClasses = cx({
     [classes.mainPanel]: true,
     [classes.mainPanelSidebarMini]: miniActive,
-    [classes.mainPanelWithPerfectScrollbar]: isWin,
   });
 
   return (
@@ -98,7 +71,7 @@ function ApplicationLayout(props) {
         miniActive={miniActive}
         {...rest}
       />
-      <div ref={mainPanel} className={mainPanelClasses}>
+      <div className={mainPanelClasses}>
         <ApplicationPageNavBar />
         <div className={classes.content}>
           <Switch>
