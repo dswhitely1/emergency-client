@@ -185,7 +185,7 @@ function RegisterPage(props) {
                                 <Face className={classes.inputAdornmentIcon} />
                               </InputAdornment>
                             ),
-                            placeHolder: 'Username...',
+                            placeholder: 'Username...',
                             name: 'username',
                             id: 'username',
                             value: username,
@@ -207,7 +207,7 @@ function RegisterPage(props) {
                                 <Lock className={classes.inputAdornmentIcon} />
                               </InputAdornment>
                             ),
-                            placeHolder: 'Password...',
+                            placeholder: 'Password...',
                             name: 'password',
                             id: 'password',
                             value: password,
@@ -230,7 +230,7 @@ function RegisterPage(props) {
                                 <Lock className={classes.inputAdornmentIcon} />
                               </InputAdornment>
                             ),
-                            placeHolder: 'Confirm Password...',
+                            placeholder: 'Confirm Password...',
                             name: 'confirmPassword',
                             id: 'confirmPassword',
                             value: confirmPassword,

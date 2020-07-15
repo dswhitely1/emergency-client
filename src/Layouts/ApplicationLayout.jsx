@@ -14,14 +14,9 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
-    position: 'relative',
-    top: 0,
-    height: '100vh',
-    '&:after': {
-      display: 'table',
-      clear: 'both',
-      content: '" "',
-    },
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   mainPanel: {
     transitionProperty: 'top, bottom, width',
@@ -30,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: 'calc(100% - 260px)',
     },
-    float: 'right',
     overflow: 'auto',
     position: 'relative',
     maxHeight: '100%',
@@ -39,22 +33,10 @@ const useStyles = makeStyles((theme) => ({
     transition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.356, 1)',
   },
   content: {
-    marginTop: 70,
-    padding: theme.spacing(4, 2),
-    minHeight: 'calc(100vh - 123px)',
-  },
-  container: {
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    '&:before,&:after': {
-      display: 'table',
-      content: '" "',
-    },
-    '&:after': {
-      clear: 'both',
-    },
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 'calc(100vh - 80px)',
   },
   mainPanelSidebarMini: {
     [theme.breakpoints.up('md')]: {
@@ -119,13 +101,11 @@ function ApplicationLayout(props) {
       <div ref={mainPanel} className={mainPanelClasses}>
         <ApplicationPageNavBar />
         <div className={classes.content}>
-          <div className={classes.container}>
-            <Switch>
-              <Route path="/now-hiring/login" component={LoginPage} />
-              <Route path="/now-hiring/register" component={RegisterPage} />
-              <Redirect from="/now-hiring" to="/now-hiring/register" />
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/now-hiring/login" component={LoginPage} />
+            <Route path="/now-hiring/register" component={RegisterPage} />
+            <Redirect from="/now-hiring" to="/now-hiring/register" />
+          </Switch>
         </div>
         <Footer fluid />
       </div>

@@ -11,34 +11,25 @@ import Button from 'components/CustomButtons/Button';
 const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: 'transparent',
-    boxShadow: 'none',
-    borderBottom: 0,
-    marginBottom: 0,
-    position: 'absolute',
-    width: '100%',
-    paddingTop: theme.spacing(1),
+    color: '#222222',
     zIndex: 1029,
-    color: 'rgba(0, 0, 0, 0.87)',
-    border: 0,
-    borderRadius: 3,
-    padding: theme.spacing(1, 0),
-    transition: 'all 150ms ease 0s',
-    minHeight: 50,
-    display: 'block',
-  },
-  container: {
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    '&:before,&:after': {
-      display: 'table',
-      content: '" "',
-    },
-    '&:after': {
-      clear: 'both',
-    },
-    minHeight: 50,
+    position: 'absolute',
+    boxShadow: 'none',
+    // backgroundColor: 'transparent',
+    // boxShadow: 'none',
+    // borderBottom: 0,
+    // marginBottom: 0,
+    // position: 'absolute',
+    // width: '100%',
+    // paddingTop: theme.spacing(1),
+    // zIndex: 1029,
+    // color: 'rgba(0, 0, 0, 0.87)',
+    // border: 0,
+    // borderRadius: 3,
+    // padding: theme.spacing(1, 0),
+    // transition: 'all 150ms ease 0s',
+    // minHeight: 50,
+    // display: 'block',
   },
   flex: {
     flex: 1,
@@ -154,7 +145,6 @@ function ApplicationPageNavBar({
         </Hidden>
         <Hidden mdUp implementation="css">
           <Button
-            className={classes.appResponsive}
             color="transparent"
             justIcon
             aria-label="open drawer"
