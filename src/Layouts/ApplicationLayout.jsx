@@ -108,7 +108,14 @@ function ApplicationLayout(props) {
 
   return (
     <div className={classes.wrapper}>
-      <SideBar routes={loggedOutRoutes} {...rest} />
+      <SideBar
+        routes={loggedOutRoutes}
+        logo={logo}
+        logoText={logoText}
+        handleDrawerToggle={handleDrawerToggle}
+        miniActive={miniActive}
+        {...rest}
+      />
       <div ref={mainPanel} className={mainPanelClasses}>
         <ApplicationPageNavBar />
         <div className={classes.content}>
@@ -120,7 +127,7 @@ function ApplicationLayout(props) {
             </Switch>
           </div>
         </div>
-        <Footer />
+        <Footer fluid />
       </div>
     </div>
   );
