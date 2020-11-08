@@ -1,5 +1,5 @@
 import React from 'react';
-import Scrollchor from 'react-scrollchor';
+// import Scrollchor from 'react-scrollchor';
 import { Typography } from '@material-ui/core';
 import { HomePageLinkContainer } from '../styles/customStyles';
 
@@ -8,7 +8,7 @@ function HomePageLinks() {
     <>
       <Typography
         variant="body2"
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#about"
         color="primary"
       >
@@ -16,7 +16,7 @@ function HomePageLinks() {
       </Typography>
       <Typography
         variant="body2"
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#services"
         color="primary"
       >
@@ -24,7 +24,7 @@ function HomePageLinks() {
       </Typography>
       <Typography
         variant="body2"
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#testimonials"
         color="primary"
       >
@@ -32,7 +32,7 @@ function HomePageLinks() {
       </Typography>
       <Typography
         variant="body2"
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#goals"
         color="primary"
       >
@@ -40,7 +40,7 @@ function HomePageLinks() {
       </Typography>
       <Typography
         variant="body2"
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#contact"
         color="primary"
       >

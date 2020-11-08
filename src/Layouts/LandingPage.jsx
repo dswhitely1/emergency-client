@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from 'react';
+import React, { useState, useEffect, createRef, useRef } from 'react';
 import Header from 'Views/HomePage/Header';
 import About from 'Views/HomePage/About';
 import Services from 'Views/HomePage/Services';
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LandingPage(props) {
+  const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
   const classes = useStyles();
 
   return (

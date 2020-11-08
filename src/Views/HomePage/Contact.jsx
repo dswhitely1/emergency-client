@@ -11,7 +11,7 @@ import Card from 'components/Card/Card';
 import GridContainer from 'components/Grid/GridContainer';
 import GridItem from 'components/Grid/GridItem';
 import Loader from 'react-loader-spinner';
-import Scrollchor from 'react-scrollchor';
+import { Link as ScrollLink } from 'react-scroll';
 import { useForm } from '../../hooks/useForm';
 
 function Contact() {
@@ -130,13 +130,16 @@ function Contact() {
                     'Submit'
                   )}
                 </Button>
-                <IconButton
-                  aria-label="Scroll To Top"
-                  color="primary"
-                  component={Scrollchor}
-                  to="#root"
-                >
-                  <ArrowUpwardIcon />
+                <IconButton aria-label="Scroll To Top" color="primary">
+                  <ScrollLink
+                    to="root"
+                    spy
+                    smooth
+                    duration={1000}
+                    activeClass="active"
+                  >
+                    <ArrowUpwardIcon />
+                  </ScrollLink>
                 </IconButton>
               </ButtonContainer>
             </Card>

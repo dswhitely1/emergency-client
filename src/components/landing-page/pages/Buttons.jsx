@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, IconButton } from '@material-ui/core';
-import Scrollchor from 'react-scrollchor';
+// import Scrollchor from 'react-scrollchor';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { ButtonContainer } from '../styles/customStyles';
 
@@ -10,7 +10,7 @@ function Buttons({ color, link, desc }) {
       <Button
         color={color}
         variant="contained"
-        component={Scrollchor}
+        // component={Scrollchor}
         to={link}
       >
         {desc}
@@ -18,7 +18,7 @@ function Buttons({ color, link, desc }) {
       <IconButton
         aria-label="Scroll To Top"
         color={color}
-        component={Scrollchor}
+        // component={Scrollchor}
         to="#root"
       >
         <ArrowUpwardIcon />

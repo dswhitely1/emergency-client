@@ -4,7 +4,8 @@ import Container from 'components/Container/Container';
 import Typography from 'components/Typography/Typography';
 import Buttons from 'Views/HomePage/Buttons';
 
-function About() {
+function About(props) {
+  console.log(props);
   return (
     <Section id="about">
       <Container description maxWidth="lg">
@@ -26,7 +27,12 @@ function About() {
           confident that we meet this goal and that is why we offer a 100%
           customer satisfaction guarantee.
         </Typography>
-        <Buttons desc="What We Offer" color="primary" link="#services" />
+        <Buttons
+          desc="What We Offer"
+          color="primary"
+          link="#services"
+          scrollTo={props.scrollTo}
+        />
       </Container>
     </Section>
   );
