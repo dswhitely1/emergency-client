@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from 'hooks/useForm';
 import Timeline from '@material-ui/icons/Timeline';
 import Code from '@material-ui/icons/Code';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import HouseIcon from '@material-ui/icons/House';
 import Group from '@material-ui/icons/Group';
 import Face from '@material-ui/icons/Face';
 import Lock from '@material-ui/icons/LockOutlined';
@@ -145,21 +147,15 @@ function RegisterPage(props) {
               <GridContainer justify="center">
                 <GridItem xs={12} md={5}>
                   <InfoArea
-                    title="Marketing"
-                    description="We've created the marketing campaign of the website. It was a very interesting collaboration."
-                    icon={Timeline}
-                    iconColor="secondary"
+                    title="Why Work for Emergency Electric"
+                    description="Emergency Electric is a fast growing company.  We have opportunities to further your education, competitive pay based on experience/licenses, and a laid back attitude."
+                    icon={HouseIcon}
+                    iconColor="info"
                   />
                   <InfoArea
-                    title="Fully Coded in HTML5"
-                    description="We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub."
-                    icon={Code}
-                    iconColor="primary"
-                  />
-                  <InfoArea
-                    title="Built Audience"
-                    description="There is also a Fully Customizable CMS Admin Dashboard for this product."
-                    icon={Group}
+                    title="Types of Jobs We Offer"
+                    description={`- General Electrician\n- Journeyman Electrician\n- Master Electrician\n- Demolition Team Member\n- Landscaping Team Member`}
+                    icon={PeopleAltIcon}
                     iconColor="info"
                   />
                 </GridItem>
