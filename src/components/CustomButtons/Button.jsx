@@ -252,7 +252,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const RegularButton = forwardRef((props, ref) => {
   const classes = useStyles();
-  console.log(classes);
   const {
     children,
     color,
@@ -280,19 +279,6 @@ const RegularButton = forwardRef((props, ref) => {
     [classes.justIcon]: justIcon,
     [className]: className !== undefined,
   });
-  console.log(btnClasses);
-  // const btnClasses = cx({
-  //   [classes.button]: true,
-  //   [classes[size]]: size,
-  //   [classes[color]]: color,
-  //   [classes.round]: round,
-  //   [classes.fullWidth]: fullWidth,
-  //   [classes.disabled]: disabled,
-  //   [classes.block]: block,
-  //   [classes.link]: link,
-  //   [classes.justIcon]: justIcon,
-  //   [className]: className !== undefined,
-  // });
 
   return (
     <Button {...rest} ref={ref} classes={muiClasses} className={btnClasses}>

@@ -54,60 +54,60 @@ export const Section = styled.section`
 `;
 
 export const StyledContainer = styled(Container)`
-    text-align: center;
-    
-    ${(props) =>
-      props.header &&
-      css`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: column;
-        height: 85vh;
+  text-align: center;
 
-        @media (min-width: 992px) {
-          height: auto;
-        }
-      `}
-       
+  ${(props) =>
+    props.header &&
+    css`
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      height: 85vh;
+
+      @media (min-width: 992px) {
+        height: auto;
+      }
+    `}
+
+  ${(props) =>
+    props.top &&
+    css`
+      margin-top: 64px;
+    `}
     ${(props) =>
-      props.top &&
-      css`
-        margin-top: 64px;
-      `}
-    ${(props) =>
-      props.description &&
-      css`
-        width: 83%;
-      `}
+    props.description &&
+    css`
+      width: 83%;
+    `}
 `;
 
 export const StyledTypography = styled(Typography)`
-    margin-bottom: 24px;
+  margin-bottom: 24px;
+
+  ${(props) =>
+    props.header &&
+    css`
+      font-weight: bolder;
+    `}
+  ${(props) =>
+    props.spacing &&
+    css`
+      margin: 0;
+      padding-top: 32px;
+    `}  
+    ${(props) =>
+    props.noMargin &&
+    css`
+      margin: 0;
+    `}
     
     ${(props) =>
-      props.header &&
-      css`
-        font-weight: bolder;
-      `}
-    ${(props) =>
-      props.spacing &&
-      css`
-        margin: 0;
-        padding-top: 32px;
-      `}  
-    ${(props) =>
-      props.noMargin &&
-      css`
-        margin: 0;
-      `}
-    
-    ${(props) =>
-      props.title &&
-      css`
-        text-transform: uppercase;
-        margin: 16px 0;
-      `}
+    props.title &&
+    css`
+      text-transform: uppercase;
+      margin: 16px 0;
+    `}
 `;
 
 export const Image = styled.img`
@@ -149,7 +149,7 @@ export const ButtonContainer = styled.div`
 
 export const StyledTextField = styled(TextField)`
   width: 100%;
-  
+
   @media (min-width: 992px) {
     ${(props) =>
       props.two &&
@@ -166,8 +166,7 @@ export const StyledTextField = styled(TextField)`
       css`
         width: calc(25% - 8px);
       `}
-  }  
-  
+  }
 `;
 
 export const Form = styled.form`
