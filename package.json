@@ -19,6 +19,8 @@
     "react-scripts": "4.0.1",
     "react-scrollchor": "^6.0.0",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
     "styled-components": "^5.2.1"
   },
   "scripts": {
@@ -56,8 +58,6 @@
     "eslint-plugin-react": "7.20.6",
     "eslint-plugin-react-hooks": "4.1.2",
     "node-sass": "^4.8.3",
-    "prettier": "2.1.1",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6"
+    "prettier": "2.1.1"
   }
 }
