@@ -10,8 +10,8 @@ import Buttons from './Buttons';
 
 function Testimonials() {
   return (
-    <Section>
-      <StyledContainer maxWidth="lg" id="testimonials">
+    <Section id="testimonials">
+      <StyledContainer maxWidth="lg">
         <StyledTypography variant="h3">Testimonials</StyledTypography>
         <StyledTypography variant="h2">
           Hear from our customers!

@@ -1,16 +1,15 @@
 import React from 'react';
+import { PhoneEnabled } from '@material-ui/icons';
+import { Tooltip } from '@material-ui/core';
 import { StyledEmergencyButton } from '../styles/customStyles';
 
 function PhoneNumber() {
   return (
-    <StyledEmergencyButton
-      size="small"
-      variant="contained"
-      color="primary"
-      href="tel:5027274823"
-    >
-      Emergency, Click to Call Now
-    </StyledEmergencyButton>
+    <Tooltip title="Have an emergency, click to call">
+      <StyledEmergencyButton color="primary" href="tel:5027274823">
+        <PhoneEnabled />
+      </StyledEmergencyButton>
+    </Tooltip>
   );
 }
 

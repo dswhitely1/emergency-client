@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import {
-  Button,
+  IconButton,
   Container,
   Grid,
   Paper,
@@ -11,12 +11,8 @@ import headerImage from '../../../assests/electrical-electrician-electricity-143
 
 export const Section = styled.section`
   padding: 8rem 0;
-  h2 {
-    font-size: 3rem;
-  }
 
-  h3 {
-    font-size: 1.5rem;
+  h4 {
     text-transform: uppercase;
   }
 
@@ -95,13 +91,13 @@ export const StyledTypography = styled(Typography)`
     css`
       margin: 0;
       padding-top: 32px;
-    `}  
+    `}
     ${(props) =>
     props.noMargin &&
     css`
       margin: 0;
     `}
-    
+
     ${(props) =>
     props.title &&
     css`
@@ -141,9 +137,7 @@ export const ButtonContainer = styled.div`
   ${(props) =>
     props.form &&
     css`
-      display: flex;
       justify-content: flex-end;
-      align-items: center;
     `}
 `;
 
@@ -204,11 +198,16 @@ export const StyledSpace = styled.div`
   margin: 16px 0;
 `;
 
-export const StyledEmergencyButton = styled(Button)`
+export const StyledEmergencyButton = styled(IconButton)`
   position: fixed;
-  right: 75px;
-  top: 75px;
+  border-radius: 50%;
+  width: 50px;
+  height: auto;
+  bottom: 15px;
+  right: 15px;
   z-index: 2000;
+  background-color: #fbf7f5;
+  cursor: pointer;
 
   @media (min-width: 992px) {
     right: 15px;

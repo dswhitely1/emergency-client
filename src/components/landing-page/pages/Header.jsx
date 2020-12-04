@@ -21,7 +21,7 @@ function Header() {
           <StyledTypography variant="h1" color="primary">
             Emergency Electric INC
           </StyledTypography>
-          <StyledTypography variant="h3" color="primary">
+          <StyledTypography variant="h4" color="primary">
             24 Hour Service | Licensed and Insured | Residential and Commercial
           </StyledTypography>
 
