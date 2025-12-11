@@ -1,4 +1,4 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const palette = {
   primary: { main: '#670300' },
@@ -10,6 +10,6 @@ const palette = {
 };
 const themeName = 'Emergency Electric';
 
-const theme = createMuiTheme({ palette, themeName });
+const theme = createTheme({ palette, themeName });
 
 export default responsiveFontSizes(theme);

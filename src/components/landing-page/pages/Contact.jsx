@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Button, IconButton } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useSelector } from 'react-redux';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import { Link as RouterLink } from 'react-router-dom';
 import ConfirmDialog from '../../../shared/ConfirmDialog';
 import { ActionsContext } from '../../../contexts/ActionsContext';
@@ -146,8 +146,7 @@ function Contact() {
               </Button>
               <Button color="primary" type="submit" disabled={isLoading}>
                 {isLoading ? (
-                  <Loader
-                    type="ThreeDots"
+                  <ThreeDots
                     color="#670300"
                     height={20}
                     width={20}

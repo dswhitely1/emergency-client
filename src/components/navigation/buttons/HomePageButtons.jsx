@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import Scrollchor from 'react-scrollchor';
+import { Scrollchor } from 'react-scrollchor';
 import { Link as RouterLink } from 'react-router-dom';
 import { DesktopOnlyView } from '../../landing-page/styles/customStyles';
 

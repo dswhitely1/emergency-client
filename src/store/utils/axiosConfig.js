@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const url = 'http://localhost:3333/api';
-const url = process.env.REACT_APP_BASE_URL;
+const url = import.meta.env.REACT_APP_BASE_URL
 
 export const axiosNoAuth = () => axios.create({ baseURL: url });
 

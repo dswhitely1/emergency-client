@@ -13,7 +13,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import ConfirmDialog from '../../../shared/ConfirmDialog';
 import { useForm } from '../../../hooks/useForm';
@@ -146,7 +146,7 @@ function AddEducation({ history, match }) {
             </Button>
             <Button color="primary" type="submit" disabled={isLoading}>
               {isLoading ? (
-                <Loader
+                <ThreeDots
                   type="ThreeDots"
                   color="#670300"
                   height={20}

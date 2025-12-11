@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
+import { Hearts } from 'react-loader-spinner';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,11 +16,10 @@ const useStyles = makeStyles((theme) => ({
 function Spinner() {
   const classes = useStyles();
   return (
-    <Loader
+    <Hearts
       height={300}
       width={300}
       className={classes.spinner}
-      type="Hearts"
       color="#670300"
     />
   );

@@ -14,7 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import jwtDecode from 'jwt-decode';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import { ActionsContext } from '../../contexts/ActionsContext';
 import { useForm } from '../../hooks/useForm';
@@ -172,7 +172,7 @@ function Login({ register, history: { push } }) {
             className={classes.submit}
           >
             {isLoading ? (
-              <Loader type="ThreeDots" color="#670300" height={20} width={20} />
+              <ThreeDots color="#670300" height={20} width={20} />
             ) : register ? (
               'Sign Up'
             ) : (

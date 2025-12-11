@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import { useForm } from '../../../hooks/useForm';
 import { parseDate } from '../../utils/parseDate';
@@ -188,8 +188,7 @@ function AddEmployment({ match, history }) {
             </Button>
             <Button color="primary" type="submit" disabled={isLoading}>
               {isLoading ? (
-                <Loader
-                  type="ThreeDots"
+                <ThreeDots
                   color="#670300"
                   height={20}
                   width={20}

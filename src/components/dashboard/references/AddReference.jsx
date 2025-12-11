@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import Loader from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import { ActionsContext } from '../../../contexts/ActionsContext';
 import { useForm } from '../../../hooks/useForm';
@@ -133,8 +133,7 @@ function AddReference({ history, match }) {
             </Button>
             <Button color="primary" type="submit" disabled={isLoading}>
               {isLoading ? (
-                <Loader
-                  type="ThreeDots"
+                <ThreeDots
                   color="#670300"
                   height={20}
                   width={20}
