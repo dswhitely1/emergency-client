@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // --- Dashboard routes: require authentication with 'user' role ---
+  // --- Dashboard routes: require authentication; redirect admins to admin dashboard ---
   if (pathname.startsWith("/dashboard")) {
     if (!isAuthenticated) {
       const url = request.nextUrl.clone();

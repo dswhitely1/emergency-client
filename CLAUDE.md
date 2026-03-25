@@ -65,6 +65,7 @@ Flat config (`eslint.config.mjs`) using `next/core-web-vitals` and `next/typescr
 
 ### Component Conventions
 - shadcn/ui primitives in `src/components/ui/` (auto-generated, do not manually edit)
+- Shared/global components in `src/components/shared/` (e.g., navigation bar)
 - Landing page sections in `src/components/landing/`
 - Dashboard components in `src/components/dashboard/`
 - Admin components in `src/components/admin/`

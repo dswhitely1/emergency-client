@@ -251,7 +251,7 @@ create policy "Admins can read all references"
 -- 12. RLS Policies — contact_messages
 -- ---------------------------------------------------------------------------
 create policy "Anyone can insert contact messages"
-  on public.contact_messages for insert to anon
+  on public.contact_messages for insert to anon, authenticated
   with check (true);
 
 create policy "Admins can read contact messages"

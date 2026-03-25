@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
-import { Navigation } from "@/components/navigation";
+import { Navigation } from "@/components/shared/navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {

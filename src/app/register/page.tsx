@@ -52,9 +52,19 @@ export default function RegisterPage() {
       return;
     }
 
-    toast.success("Account created successfully!");
-    router.push("/dashboard");
-    router.refresh();
+    // Check if a session was established (won't be if email confirmation is enabled)
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session) {
+      toast.success("Account created successfully!");
+      router.push("/dashboard");
+      router.refresh();
+    } else {
+      toast.success("Account created! Please check your email to confirm your account.");
+      setIsLoading(false);
+    }
   }
 
   return (
