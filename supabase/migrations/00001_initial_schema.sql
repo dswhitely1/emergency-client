@@ -170,13 +170,13 @@ create policy "Users can read own profile"
 create policy "Users can update own profile"
   on public.profiles for update
   to authenticated
-  using (auth.uid() = id and (auth.jwt()->>'user_role') = 'user')
+  using (auth.uid() = id and (auth.jwt()->'app_metadata'->>'user_role') = 'user')
   with check (auth.uid() = id and role = 'user');
 
 create policy "Admins can read all profiles"
   on public.profiles for select
   to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 -- ---------------------------------------------------------------------------
 -- 9. RLS Policies — employment
@@ -187,19 +187,19 @@ create policy "Users can read own employment"
 
 create policy "Users can insert own employment"
   on public.employment for insert to authenticated
-  with check (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  with check (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can update own employment"
   on public.employment for update to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can delete own employment"
   on public.employment for delete to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Admins can read all employment"
   on public.employment for select to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 -- ---------------------------------------------------------------------------
 -- 10. RLS Policies — education
@@ -210,19 +210,19 @@ create policy "Users can read own education"
 
 create policy "Users can insert own education"
   on public.education for insert to authenticated
-  with check (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  with check (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can update own education"
   on public.education for update to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can delete own education"
   on public.education for delete to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Admins can read all education"
   on public.education for select to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 -- ---------------------------------------------------------------------------
 -- 11. RLS Policies — references
@@ -233,19 +233,19 @@ create policy "Users can read own references"
 
 create policy "Users can insert own references"
   on public.references for insert to authenticated
-  with check (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  with check (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can update own references"
   on public.references for update to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Users can delete own references"
   on public.references for delete to authenticated
-  using (auth.uid() = user_id and (auth.jwt()->>'user_role') = 'user');
+  using (auth.uid() = user_id and (auth.jwt()->'app_metadata'->>'user_role') = 'user');
 
 create policy "Admins can read all references"
   on public.references for select to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 -- ---------------------------------------------------------------------------
 -- 12. RLS Policies — contact_messages
@@ -256,12 +256,12 @@ create policy "Anyone can insert contact messages"
 
 create policy "Admins can read contact messages"
   on public.contact_messages for select to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 create policy "Admins can update contact messages"
   on public.contact_messages for update to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');
 
 create policy "Admins can delete contact messages"
   on public.contact_messages for delete to authenticated
-  using ((auth.jwt()->>'user_role') = 'admin');
+  using ((auth.jwt()->'app_metadata'->>'user_role') = 'admin');

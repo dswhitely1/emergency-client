@@ -33,9 +33,10 @@ export function Navigation() {
 
       if (session?.access_token) {
         const payload = JSON.parse(atob(session.access_token.split(".")[1]));
+        const role = payload.app_metadata?.user_role ?? payload.user_role ?? "user";
         setUserState({
           isAuthenticated: true,
-          role: payload.user_role ?? "user",
+          role: role as "user" | "admin",
         });
       } else {
         setUserState({ isAuthenticated: false, role: null });
@@ -49,9 +50,10 @@ export function Navigation() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.access_token) {
         const payload = JSON.parse(atob(session.access_token.split(".")[1]));
+        const role = payload.app_metadata?.user_role ?? payload.user_role ?? "user";
         setUserState({
           isAuthenticated: true,
-          role: payload.user_role ?? "user",
+          role: role as "user" | "admin",
         });
       } else {
         setUserState({ isAuthenticated: false, role: null });

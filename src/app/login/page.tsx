@@ -47,7 +47,8 @@ export default function LoginPage() {
     let redirectTo = "/dashboard";
     if (session?.access_token) {
       const payload = JSON.parse(atob(session.access_token.split(".")[1]));
-      if (payload.user_role === "admin") {
+      const role = payload.app_metadata?.user_role ?? payload.user_role;
+      if (role === "admin") {
         redirectTo = "/admin/dashboard";
       }
     }

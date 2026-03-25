@@ -5,15 +5,18 @@ export async function middleware(request: NextRequest) {
   const { supabase, user, supabaseResponse } = await updateSession(request);
   const { pathname } = request.nextUrl;
 
-  // Read user role from JWT claims
+  // Read user role from app_metadata in JWT claims
   let userRole: string | null = null;
   if (user) {
     const {
       data: { session },
     } = await supabase.auth.getSession();
-    userRole = (session?.access_token
-      ? JSON.parse(atob(session.access_token.split(".")[1]))?.user_role
-      : null) ?? "user";
+    if (session?.access_token) {
+      const payload = JSON.parse(atob(session.access_token.split(".")[1]));
+      userRole = payload.app_metadata?.user_role ?? payload.user_role ?? "user";
+    } else {
+      userRole = "user";
+    }
   }
 
   const isAuthenticated = !!user;
