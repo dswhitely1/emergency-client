@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, Zap, LogOut } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -84,7 +84,6 @@ export function Navigation() {
           href={isAuthenticated ? (isAdmin ? "/admin/dashboard" : "/dashboard") : "/"}
           className="flex items-center gap-2 font-semibold tracking-tight"
         >
-          <Zap className="h-5 w-5 text-secondary" />
           <span>Emergency Electric INC</span>
         </Link>
 
@@ -94,42 +93,42 @@ export function Navigation() {
             <>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/">Home</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/#about">About</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/#services">Services</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/#testimonials">Testimonials</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/#goals">Goals</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/#contact">Contact</Link>
@@ -137,7 +136,7 @@ export function Navigation() {
               <Separator orientation="vertical" className="mx-2 h-6 bg-primary-foreground/20" />
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/login">Login</Link>
@@ -149,7 +148,7 @@ export function Navigation() {
             <>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/dashboard">Dashboard</Link>
@@ -157,7 +156,7 @@ export function Navigation() {
               <Separator orientation="vertical" className="mx-2 h-6 bg-primary-foreground/20" />
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 onClick={handleLogout}
                 disabled={isPending}
               >
@@ -171,14 +170,14 @@ export function Navigation() {
             <>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/admin/dashboard">Applicants</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
                 <Link href="/admin/dashboard/messages">Messages</Link>
@@ -186,7 +185,7 @@ export function Navigation() {
               <Separator orientation="vertical" className="mx-2 h-6 bg-primary-foreground/20" />
               <Button
                 variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+                className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 onClick={handleLogout}
                 disabled={isPending}
               >
@@ -203,7 +202,7 @@ export function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="text-primary-foreground hover:bg-primary-foreground/10"
+              className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
             >
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle menu</span>

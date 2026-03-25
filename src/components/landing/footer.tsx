@@ -22,7 +22,7 @@ export function Footer() {
           </div>
         </div>
         <p className="pt-8 pb-4 text-center">
-          Copyright 2019 - All Rights Reserved
+          Copyright {new Date().getFullYear()} - All Rights Reserved
         </p>
       </div>
     </footer>
