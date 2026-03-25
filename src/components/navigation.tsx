@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, Zap, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Menu, Zap, LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -16,7 +16,6 @@ type UserState = {
 
 export function Navigation() {
   const router = useRouter();
-  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [userState, setUserState] = useState<UserState>({
     isAuthenticated: false,
