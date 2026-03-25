@@ -2,25 +2,37 @@ import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, user, supabaseResponse } = await updateSession(request);
-  const { pathname } = request.nextUrl;
-
-  // Read user role from app_metadata in JWT claims
+  let supabaseResponse: ReturnType<typeof NextResponse.next> | Awaited<ReturnType<typeof updateSession>>["supabaseResponse"];
+  let user = null;
   let userRole: string | null = null;
-  if (user) {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      const payload = JSON.parse(atob(session.access_token.split(".")[1]));
-      userRole = payload.app_metadata?.user_role ?? payload.user_role ?? "user";
-    } else {
-      userRole = "user";
+
+  try {
+    const session = await updateSession(request);
+    supabaseResponse = session.supabaseResponse;
+    user = session.user;
+
+    // Read user role from app_metadata in JWT claims
+    if (user) {
+      const {
+        data: { session: authSession },
+      } = await session.supabase.auth.getSession();
+      if (authSession?.access_token) {
+        const payload = JSON.parse(atob(authSession.access_token.split(".")[1]));
+        userRole = payload.app_metadata?.user_role ?? payload.user_role ?? "user";
+      } else {
+        userRole = "user";
+      }
     }
+  } catch {
+    // If Supabase is unavailable, allow the request through without auth
+    return NextResponse.next();
   }
+
+  const { pathname } = request.nextUrl;
 
   const isAuthenticated = !!user;
   const isAdmin = userRole === "admin";
+  supabaseResponse = supabaseResponse ?? NextResponse.next();
 
   // --- Auth pages: redirect authenticated users away ---
   if (pathname === "/login" || pathname === "/register") {
