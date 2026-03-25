@@ -97,7 +97,7 @@ export function Navigation() {
                 className="text-primary-foreground hover:bg-primary-foreground/10"
                 asChild
               >
-                <Link href="/#services">Services</Link>
+                <Link href="/">Home</Link>
               </Button>
               <Button
                 variant="ghost"
@@ -105,6 +105,27 @@ export function Navigation() {
                 asChild
               >
                 <Link href="/#about">About</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+              >
+                <Link href="/#services">Services</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+              >
+                <Link href="/#testimonials">Testimonials</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+              >
+                <Link href="/#goals">Goals</Link>
               </Button>
               <Button
                 variant="ghost"
@@ -120,13 +141,6 @@ export function Navigation() {
                 asChild
               >
                 <Link href="/login">Login</Link>
-              </Button>
-              <Button
-                variant="secondary"
-                className="text-secondary-foreground"
-                asChild
-              >
-                <Link href="/register">Register</Link>
               </Button>
             </>
           )}
@@ -200,10 +214,19 @@ export function Navigation() {
               {!isAuthenticated && (
                 <>
                   <Button variant="ghost" className="justify-start" asChild>
-                    <Link href="/#services" onClick={closeMobile}>Services</Link>
+                    <Link href="/" onClick={closeMobile}>Home</Link>
                   </Button>
                   <Button variant="ghost" className="justify-start" asChild>
                     <Link href="/#about" onClick={closeMobile}>About</Link>
+                  </Button>
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link href="/#services" onClick={closeMobile}>Services</Link>
+                  </Button>
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link href="/#testimonials" onClick={closeMobile}>Testimonials</Link>
+                  </Button>
+                  <Button variant="ghost" className="justify-start" asChild>
+                    <Link href="/#goals" onClick={closeMobile}>Goals</Link>
                   </Button>
                   <Button variant="ghost" className="justify-start" asChild>
                     <Link href="/#contact" onClick={closeMobile}>Contact</Link>
@@ -211,9 +234,6 @@ export function Navigation() {
                   <Separator className="my-2" />
                   <Button variant="ghost" className="justify-start" asChild>
                     <Link href="/login" onClick={closeMobile}>Login</Link>
-                  </Button>
-                  <Button variant="default" className="justify-start" asChild>
-                    <Link href="/register" onClick={closeMobile}>Register</Link>
                   </Button>
                 </>
               )}
