@@ -20,12 +20,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 
+const supabase = createClient();
+
 export default function MessagesPage() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteTarget, setDeleteTarget] = useState<ContactMessage | null>(null);
-
-  const supabase = createClient();
 
   const fetchMessages = useCallback(async () => {
     const { data, error } = await supabase
@@ -40,7 +40,7 @@ export default function MessagesPage() {
 
     setMessages(data ?? []);
     setLoading(false);
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     fetchMessages();
