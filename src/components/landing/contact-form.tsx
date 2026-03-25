@@ -91,7 +91,7 @@ export function ContactForm() {
           </h2>
           <form onSubmit={handleSubmit} className="my-4 flex flex-col gap-4">
             <div className="flex flex-col gap-4 lg:flex-row">
-              <div className="flex-1 text-left">
+              <div className="flex-1 space-y-2 text-left">
                 <Label htmlFor="firstName">First Name</Label>
                 <Input
                   id="firstName"
@@ -102,7 +102,7 @@ export function ContactForm() {
                   placeholder="First Name"
                 />
               </div>
-              <div className="flex-1 text-left">
+              <div className="flex-1 space-y-2 text-left">
                 <Label htmlFor="lastName">Last Name</Label>
                 <Input
                   id="lastName"
@@ -113,7 +113,7 @@ export function ContactForm() {
                   placeholder="Last Name"
                 />
               </div>
-              <div className="flex-1 text-left">
+              <div className="flex-1 space-y-2 text-left">
                 <Label htmlFor="contact">Email or Phone Number</Label>
                 <Input
                   id="contact"
@@ -126,7 +126,7 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="text-left">
+            <div className="space-y-2 text-left">
               <Label htmlFor="subject">Subject</Label>
               <Input
                 id="subject"
@@ -138,7 +138,7 @@ export function ContactForm() {
               />
             </div>
 
-            <div className="text-left">
+            <div className="space-y-2 text-left">
               <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
