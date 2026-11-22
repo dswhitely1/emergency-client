@@ -13,10 +13,7 @@ on:
       - "!infra/bootstrap/**"
       - ".github/workflows/infra.yml"
 
-permissions:
-  id-token: write
-  contents: read
-  pull-requests: write
+permissions: {}
 
 concurrency:
   group: infra-${{ github.ref }}
@@ -37,6 +34,10 @@ jobs:
   plan:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v5
 
@@ -86,6 +87,9 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v5
 

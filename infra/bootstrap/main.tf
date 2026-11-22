@@ -183,18 +183,34 @@ data "aws_iam_policy_document" "gha" {
     resources = ["arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/*"]
   }
 
-  # The live console-managed app is off limits until cutover.
+  # CreateApp has no resource type in the Service Authorization Reference, so it needs "*".
   statement {
-    sid    = "ProtectLiveApp"
-    effect = "Deny"
-    actions = [
-      "amplify:DeleteApp", "amplify:UpdateApp", "amplify:DeleteBranch", "amplify:UpdateBranch",
-      "amplify:DeleteDomainAssociation", "amplify:UpdateDomainAssociation", "amplify:CreateDomainAssociation",
-    ]
+    sid       = "AmplifyCreateApp"
+    actions   = ["amplify:CreateApp"]
+    resources = ["*"]
+  }
+
+  # The live console-managed app is read-only to this role until cutover.
+  statement {
+    sid         = "ProtectLiveApp"
+    effect      = "Deny"
+    not_actions = ["amplify:Get*", "amplify:List*"]
     resources = [
       "arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/${var.live_amplify_app_id}",
       "arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/${var.live_amplify_app_id}/*",
     ]
+  }
+
+  # Amplify writes its own Route 53 records for a domain association, which would bypass the
+  # record-name condition below, so domain associations wait for cutover too.
+  dynamic "statement" {
+    for_each = var.allow_site_records ? [] : [1]
+    content {
+      sid       = "NoDomainAssociationsBeforeCutover"
+      effect    = "Deny"
+      actions   = ["amplify:CreateDomainAssociation", "amplify:UpdateDomainAssociation"]
+      resources = ["arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/*/domains/*"]
+    }
   }
 
   statement {
@@ -209,6 +225,7 @@ data "aws_iam_policy_document" "gha" {
     resources = [data.aws_route53_zone.site.arn]
 
     # Only the SES records until cutover; set allow_site_records = true for Task C.
+    # Normalized names are lowercase with no trailing dot; "*" here is the IAM wildcard.
     dynamic "condition" {
       for_each = var.allow_site_records ? [] : [1]
       content {

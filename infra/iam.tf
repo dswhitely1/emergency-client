@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "amplify_compute_trust" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -5,6 +7,19 @@ data "aws_iam_policy_document" "amplify_compute_trust" {
     principals {
       type        = "Service"
       identifiers = ["amplify.amazonaws.com"]
+    }
+
+    # Confused-deputy guard: only Amplify apps in this account.
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = ["arn:aws:amplify:${var.aws_region}:${data.aws_caller_identity.current.account_id}:apps/*"]
     }
   }
 }
@@ -36,4 +51,11 @@ resource "aws_iam_role_policy" "amplify_compute" {
   name   = "ses-send"
   role   = aws_iam_role.amplify_compute.id
   policy = data.aws_iam_policy_document.amplify_compute.json
+}
+
+# New IAM roles take a few seconds to become assumable; CreateApp validates the compute role.
+resource "time_sleep" "amplify_compute_propagation" {
+  create_duration = "15s"
+
+  depends_on = [aws_iam_role_policy.amplify_compute]
 }

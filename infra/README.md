@@ -29,6 +29,18 @@ Existing apex/`www` records and the old Amplify app are not touched before cutov
 
    Keep `infra/bootstrap/terraform.tfstate` somewhere safe (it is git-ignored).
 
+   Before merging this PR, check the zone for email records that would collide with the ones
+   Terraform creates (the first apply fails on an existing record):
+
+   ```sh
+   aws route53 list-resource-record-sets --hosted-zone-id <zoneId> \
+     --query "ResourceRecordSets[?Name=='_dmarc.emergencyelectricinc.com.' || Name=='mail.emergencyelectricinc.com.']"
+   ```
+
+   If any exist, import them before the first apply, e.g.
+   `terraform -chdir=infra import aws_route53_record.dmarc <zoneId>__dmarc.emergencyelectricinc.com_TXT`
+   (`<zoneId>_<name>_<type>`; likewise `mail_from_mx` / `mail_from_spf`).
+
 2. **GitHub repository settings** (Settings → Secrets and variables → Actions):
 
    | Kind     | Name                           | Value                                        |
@@ -49,3 +61,19 @@ Existing apex/`www` records and the old Amplify app are not touched before cutov
    `emergency_electric@hotmail.com` must click the AWS verification link. In Hotmail, mark the
    first messages from `website@emergencyelectricinc.com` as "Not junk" and add the sender to
    Safe Senders.
+
+## Known trade-offs (single-owner repo)
+
+- The plan role can read the configuration of every Amplify app in the account, including the live
+  one, and its environment variables.
+- PR plan jobs receive the `TF_VAR_*` secrets, so code in any same-repo PR can read them. That is
+  acceptable while only the owner can push branches.
+- `TURNSTILE_SECRET_KEY` is a plaintext Amplify environment variable (visible in the Amplify
+  console and in Terraform state). Move it to SSM Parameter Store later.
+
+## Cutover checklist (Task C)
+
+- [ ] `emergency_electric@hotmail.com` has clicked the SES verification link (SES console shows
+      the identity as verified) and a test submission from the preview URL arrived.
+- [ ] Re-apply bootstrap with `-var allow_site_records=true` and remove the live-app protection.
+- [ ] Set `attach_domain = true` after removing the domain from the old app.

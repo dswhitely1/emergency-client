@@ -6,6 +6,8 @@ resource "aws_amplify_app" "site" {
   platform         = "WEB_COMPUTE"
   compute_role_arn = aws_iam_role.amplify_compute.arn
 
+  depends_on = [time_sleep.amplify_compute_propagation]
+
   environment_variables = {
     SES_REGION                     = var.aws_region
     CONTACT_TO_EMAIL               = local.recipient_email
