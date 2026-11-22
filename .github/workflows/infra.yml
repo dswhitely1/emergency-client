@@ -46,7 +46,7 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v5
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_PLAN_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - run: terraform fmt -check -recursive
@@ -100,4 +100,15 @@ jobs:
 
       - run: terraform init -input=false -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
 
-      - run: terraform apply -input=false -auto-approve -no-color
+      # Plan the merged state, record it on the run summary, then apply exactly that plan.
+      - run: terraform plan -input=false -no-color -out=tfplan
+
+      - run: |
+          {
+            echo '### Applied plan'
+            echo '```'
+            terraform show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - run: terraform apply -input=false -no-color tfplan

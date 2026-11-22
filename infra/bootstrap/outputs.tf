@@ -3,7 +3,12 @@ output "state_bucket" {
   value       = aws_s3_bucket.state.bucket
 }
 
+output "gha_plan_role_arn" {
+  description = "Read-only role for PR plans (GitHub variable AWS_PLAN_ROLE_ARN)."
+  value       = aws_iam_role.gha_plan.arn
+}
+
 output "gha_role_arn" {
-  description = "Role assumed by GitHub Actions via OIDC (GitHub variable AWS_ROLE_ARN)."
+  description = "Apply role for the production environment (GitHub variable AWS_ROLE_ARN)."
   value       = aws_iam_role.gha.arn
 }

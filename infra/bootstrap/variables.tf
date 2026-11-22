@@ -20,3 +20,14 @@ variable "create_oidc_provider" {
   type        = bool
   default     = true
 }
+
+variable "live_amplify_app_id" {
+  description = "ID of the existing console-managed Amplify app (aws amplify list-apps). The deploy role may not change it."
+  type        = string
+}
+
+variable "allow_site_records" {
+  description = "Let the deploy role change any record in the zone (needed at cutover). Default limits it to the SES records."
+  type        = bool
+  default     = false
+}

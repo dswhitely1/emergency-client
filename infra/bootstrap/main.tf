@@ -71,7 +71,9 @@ data "aws_iam_openid_connect_provider" "github" {
   url   = local.oidc_url
 }
 
-data "aws_iam_policy_document" "gha_trust" {
+# Two deploy roles. PR code runs `terraform plan`, so the role PRs can reach is read-only; only the
+# approval-gated production environment can assume the role that writes.
+data "aws_iam_policy_document" "gha_plan_trust" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
@@ -89,58 +91,66 @@ data "aws_iam_policy_document" "gha_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:${var.github_repo}:pull_request",
-        "repo:${var.github_repo}:environment:production",
-      ]
+      values   = ["repo:${var.github_repo}:pull_request"]
     }
   }
 }
 
-resource "aws_iam_role" "gha" {
-  name               = "emergency-client-gha"
-  assume_role_policy = data.aws_iam_policy_document.gha_trust.json
+data "aws_iam_policy_document" "gha_apply_trust" {
+  statement {
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [local.oidc_arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:sub"
+      values   = ["repo:${var.github_repo}:environment:production"]
+    }
+  }
 }
 
-data "aws_iam_policy_document" "gha" {
-  statement {
-    sid       = "Amplify"
-    actions   = ["amplify:*"]
-    resources = ["arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/*"]
-  }
+resource "aws_iam_role" "gha_plan" {
+  name               = "emergency-client-gha-plan"
+  assume_role_policy = data.aws_iam_policy_document.gha_plan_trust.json
+}
 
+resource "aws_iam_role" "gha" {
+  name               = "emergency-client-gha"
+  assume_role_policy = data.aws_iam_policy_document.gha_apply_trust.json
+}
+
+data "aws_iam_policy_document" "gha_plan" {
   statement {
-    sid       = "AmplifyList"
-    actions   = ["amplify:ListApps"]
+    sid       = "AmplifyRead"
+    actions   = ["amplify:Get*", "amplify:List*"]
     resources = ["*"]
   }
 
   statement {
-    sid       = "SesIdentities"
-    actions   = ["ses:*"]
-    resources = ["arn:aws:ses:${var.aws_region}:${local.account_id}:identity/*"]
-  }
-
-  statement {
-    sid       = "Route53Zone"
-    actions   = ["route53:ChangeResourceRecordSets", "route53:GetHostedZone", "route53:ListResourceRecordSets", "route53:ListTagsForResource"]
-    resources = [data.aws_route53_zone.site.arn]
+    sid       = "SesRead"
+    actions   = ["ses:Get*", "ses:List*"]
+    resources = ["*"]
   }
 
   statement {
     sid       = "Route53Read"
-    actions   = ["route53:ListHostedZones", "route53:ListHostedZonesByName", "route53:GetChange"]
+    actions   = ["route53:Get*", "route53:List*"]
     resources = ["*"]
   }
 
   statement {
-    sid = "IamRoles"
-    actions = [
-      "iam:CreateRole", "iam:DeleteRole", "iam:GetRole", "iam:UpdateRole", "iam:UpdateAssumeRolePolicy",
-      "iam:TagRole", "iam:UntagRole", "iam:ListRolePolicies", "iam:ListAttachedRolePolicies",
-      "iam:PutRolePolicy", "iam:GetRolePolicy", "iam:DeleteRolePolicy", "iam:ListInstanceProfilesForRole",
-      "iam:PassRole",
-    ]
+    sid       = "IamRead"
+    actions   = ["iam:GetRole", "iam:GetRolePolicy", "iam:ListRolePolicies", "iam:ListAttachedRolePolicies", "iam:ListInstanceProfilesForRole"]
     resources = ["arn:aws:iam::${local.account_id}:role${local.iam_path}*"]
   }
 
@@ -151,10 +161,96 @@ data "aws_iam_policy_document" "gha" {
   }
 
   statement {
-    sid       = "StateObjects"
-    actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
+    sid       = "StateRead"
+    actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.state.arn}/*"]
   }
+
+  # plan still takes the state lock.
+  statement {
+    sid       = "StateLock"
+    actions   = ["s3:PutObject", "s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.state.arn}/site/terraform.tfstate.tflock"]
+  }
+}
+
+data "aws_iam_policy_document" "gha" {
+  source_policy_documents = [data.aws_iam_policy_document.gha_plan.json]
+
+  statement {
+    sid       = "Amplify"
+    actions   = ["amplify:*"]
+    resources = ["arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/*"]
+  }
+
+  # The live console-managed app is off limits until cutover.
+  statement {
+    sid    = "ProtectLiveApp"
+    effect = "Deny"
+    actions = [
+      "amplify:DeleteApp", "amplify:UpdateApp", "amplify:DeleteBranch", "amplify:UpdateBranch",
+      "amplify:DeleteDomainAssociation", "amplify:UpdateDomainAssociation", "amplify:CreateDomainAssociation",
+    ]
+    resources = [
+      "arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/${var.live_amplify_app_id}",
+      "arn:aws:amplify:${var.aws_region}:${local.account_id}:apps/${var.live_amplify_app_id}/*",
+    ]
+  }
+
+  statement {
+    sid       = "SesIdentities"
+    actions   = ["ses:CreateEmailIdentity", "ses:DeleteEmailIdentity", "ses:PutEmailIdentity*", "ses:TagResource", "ses:UntagResource"]
+    resources = ["arn:aws:ses:${var.aws_region}:${local.account_id}:identity/*"]
+  }
+
+  statement {
+    sid       = "Route53EmailRecords"
+    actions   = ["route53:ChangeResourceRecordSets"]
+    resources = [data.aws_route53_zone.site.arn]
+
+    # Only the SES records until cutover; set allow_site_records = true for Task C.
+    dynamic "condition" {
+      for_each = var.allow_site_records ? [] : [1]
+      content {
+        test     = "ForAllValues:StringLike"
+        variable = "route53:ChangeResourceRecordSetsNormalizedRecordNames"
+        values   = ["*._domainkey.${var.domain_name}", "mail.${var.domain_name}", "_dmarc.${var.domain_name}"]
+      }
+    }
+  }
+
+  statement {
+    sid = "IamComputeRole"
+    actions = [
+      "iam:CreateRole", "iam:DeleteRole", "iam:UpdateRole", "iam:UpdateAssumeRolePolicy",
+      "iam:TagRole", "iam:UntagRole", "iam:PutRolePolicy", "iam:DeleteRolePolicy",
+    ]
+    resources = ["arn:aws:iam::${local.account_id}:role${local.iam_path}emergency-client-amplify-compute"]
+  }
+
+  statement {
+    sid       = "PassComputeRole"
+    actions   = ["iam:PassRole"]
+    resources = ["arn:aws:iam::${local.account_id}:role${local.iam_path}emergency-client-amplify-compute"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "iam:PassedToService"
+      values   = ["amplify.amazonaws.com"]
+    }
+  }
+
+  statement {
+    sid       = "StateWrite"
+    actions   = ["s3:PutObject", "s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.state.arn}/*"]
+  }
+}
+
+resource "aws_iam_role_policy" "gha_plan" {
+  name   = "emergency-client-gha-plan"
+  role   = aws_iam_role.gha_plan.id
+  policy = data.aws_iam_policy_document.gha_plan.json
 }
 
 resource "aws_iam_role_policy" "gha" {
