@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, Inter } from "next/font/google";
+import { site } from "@/content/site";
 import "./globals.css";
 
 const heading = Barlow_Condensed({
@@ -13,12 +14,21 @@ const body = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Emergency Electric INC",
-  description:
-    "Fully licensed electricians are on call 24 hours a day to help you with any electrical emergency you have.",
-};
+const title = "Emergency Electric, Inc. | Lanesville, IN Electrician";
 
+export const metadata: Metadata = {
+  metadataBase: new URL("https://emergencyelectricinc.com"),
+  title,
+  description: site.tagline,
+  openGraph: {
+    title,
+    description: site.tagline,
+    url: "/",
+    siteName: site.name,
+    locale: "en_US",
+    type: "website",
+  },
+};
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html

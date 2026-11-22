@@ -1,3 +1,4 @@
+import { ContactSection } from "@/components/contact/contact-section";
 import { About } from "@/components/site/about";
 import { CallButton } from "@/components/site/call-button";
 import { Careers } from "@/components/site/careers";
@@ -19,6 +20,7 @@ export default function Home() {
         <Testimonials />
         <Goals />
         <Careers />
+        <ContactSection />
       </main>
       <SiteFooter />
       <CallButton variant="floating" />
