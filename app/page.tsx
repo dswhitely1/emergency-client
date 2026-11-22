@@ -21,9 +21,9 @@ export default function Home() {
         <Goals />
         <Careers />
         <ContactSection />
+        <CallButton variant="floating" className="md:hidden" />
       </main>
       <SiteFooter />
-      <CallButton variant="floating" />
     </>
   );
 }

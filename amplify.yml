@@ -1,0 +1,23 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Installs (if missing) and switches to the Node version in .nvmrc.
+        - nvm install
+        - nvm use
+        - npm ci
+    build:
+      commands:
+        # Amplify env vars reach the build but not the SSR runtime, so write the
+        # server-side ones into .env.production for Next.js to load at runtime.
+        - env | grep -E '^(SES_REGION|CONTACT_TO_EMAIL|CONTACT_FROM_EMAIL|TURNSTILE_SECRET_KEY)=' >> .env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*
