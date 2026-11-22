@@ -1,7 +1,27 @@
+import { About } from "@/components/site/about";
+import { CallButton } from "@/components/site/call-button";
+import { Careers } from "@/components/site/careers";
+import { Goals } from "@/components/site/goals";
+import { Hero } from "@/components/site/hero";
+import { Services } from "@/components/site/services";
+import { SiteFooter } from "@/components/site/site-footer";
+import { SiteHeader } from "@/components/site/site-header";
+import { Testimonials } from "@/components/site/testimonials";
+
 export default function Home() {
   return (
-    <main className="flex flex-1 items-center justify-center">
-      <h1 className="font-heading text-4xl text-primary">Emergency Electric</h1>
-    </main>
+    <>
+      <SiteHeader />
+      <main className="flex-1">
+        <Hero />
+        <About />
+        <Services />
+        <Testimonials />
+        <Goals />
+        <Careers />
+      </main>
+      <SiteFooter />
+      <CallButton variant="floating" />
+    </>
   );
 }
