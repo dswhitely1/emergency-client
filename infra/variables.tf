@@ -16,3 +16,26 @@ locals {
   spf_record      = "v=spf1 include:amazonses.com ~all"
   dmarc_record    = "v=DMARC1; p=none;"
 }
+
+variable "attach_domain" {
+  description = "Attach the apex and www domain to the new app. Leave false until cutover."
+  type        = bool
+  default     = false
+}
+
+variable "github_access_token" {
+  description = "GitHub token Amplify uses to connect to the repository."
+  type        = string
+  sensitive   = true
+}
+
+variable "turnstile_secret_key" {
+  description = "Cloudflare Turnstile secret key (server-side)."
+  type        = string
+  sensitive   = true
+}
+
+variable "turnstile_site_key" {
+  description = "Cloudflare Turnstile site key (public)."
+  type        = string
+}
