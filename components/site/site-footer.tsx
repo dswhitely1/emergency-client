@@ -1,12 +1,4 @@
-import { cacheLife } from "next/cache";
 import { site } from "@/content/site";
-
-// Cached so the page stays prerendered; revalidates daily so the year rolls over.
-async function CopyrightYear() {
-  "use cache";
-  cacheLife("days");
-  return <>{new Date().getFullYear()}</>;
-}
 
 export function SiteFooter() {
   const { street, city, state, zip } = site.address;
@@ -43,7 +35,7 @@ export function SiteFooter() {
       </div>
       {/* Extra bottom padding on mobile keeps the floating call button off this line. */}
       <p className="border-t border-dark-foreground/20 pt-4 pb-24 text-center text-sm md:pb-4">
-        © <CopyrightYear /> {site.name} All rights reserved.
+        © {new Date().getFullYear()} {site.name} All rights reserved.
       </p>
     </footer>
   );
