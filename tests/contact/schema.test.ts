@@ -7,7 +7,7 @@ const valid = {
   phone: "",
   topic: "service",
   message: "My breaker keeps tripping.",
-  company: "",
+  hp_field: "",
 };
 
 function fieldErrors(input: unknown) {

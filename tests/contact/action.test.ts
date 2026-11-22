@@ -22,7 +22,7 @@ function form(overrides: Record<string, string> = {}) {
     phone: "",
     topic: "general",
     message: "Please call me about a quote.",
-    company: "",
+    hp_field: "",
     "cf-turnstile-response": "token-123",
     ...overrides,
   };
@@ -43,11 +43,13 @@ test("valid input with a good token sends once and reports success", async () =>
   expect(verify).toHaveBeenCalledWith("token-123", "203.0.113.7");
 });
 
-test("a filled honeypot pretends success without sending", async () => {
-  const state = await submitContact(idle, form({ company: "Spam LLC" }));
+test("a filled honeypot pretends success without sending and logs a warning", async () => {
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  const state = await submitContact(idle, form({ hp_field: "Spam LLC" }));
   expect(state.status).toBe("success");
   expect(send).not.toHaveBeenCalled();
   expect(verify).not.toHaveBeenCalled();
+  expect(warn).toHaveBeenCalledTimes(1);
 });
 
 test("a failed Turnstile check errors with the office phone and does not send", async () => {

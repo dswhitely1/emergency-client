@@ -43,3 +43,10 @@ test("nav hrefs match the section ids", () => {
     "#contact",
   ]);
 });
+
+test("Goals does not repeat an About paragraph", () => {
+  const normalize = (text: string) => text.replace(/[^a-z0-9]/gi, "").toLowerCase();
+  const about = new Set(site.about.map(normalize));
+  expect(site.goals.length).toBeGreaterThan(0);
+  for (const goal of site.goals) expect(about.has(normalize(goal))).toBe(false);
+});

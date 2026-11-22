@@ -68,7 +68,6 @@ export const site: SiteContent = {
   ],
   goals: [
     "We are committed to excellence. Our goal is to exceed your expectations. Using our years of experience and expertise and by providing a dynamic and skilled team, we will ensure your projects are a complete success.",
-    "Our primary measure of success is customer satisfaction. We define customers as employees, partners and clients. Our intent is to earn and maintain the respect and trust of everyone we come in contact with when representing Emergency Electric Inc.",
   ],
   careers: {
     heading: "We're Hiring",

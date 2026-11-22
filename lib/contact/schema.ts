@@ -11,7 +11,7 @@ export const contactSchema = z.object({
     .min(10, "Please enter at least 10 characters.")
     .max(5000),
   // Honeypot: hidden from people, so any value means a bot filled it in.
-  company: z.string(),
+  hp_field: z.string(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;

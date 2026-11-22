@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { ContactForm } from "@/components/contact/contact-form";
+import { site } from "@/content/site";
 
 vi.mock("@/app/actions/contact", () => ({ submitContact: vi.fn() }));
 vi.mock("next/script", () => ({ default: () => null }));
@@ -66,7 +67,7 @@ test("sends the form's own fields, including the Turnstile token, honeypot, and 
   await waitFor(() => expect(submit).toHaveBeenCalledTimes(1));
   const formData = submit.mock.calls[0][1];
   expect(formData.get("cf-turnstile-response")).toBe("token-123");
-  expect(formData.get("company")).toBe("");
+  expect(formData.get("hp_field")).toBe("");
   expect(formData.get("topic")).toBe("general");
   expect(formData.get("message")).toBe("Please call me about a quote.");
 });
@@ -114,4 +115,54 @@ test("on error the message renders as an alert and the form stays", async () => 
 
   expect(await screen.findByRole("alert")).toHaveTextContent("(502) 727-4823");
   expect(screen.getByRole("button", { name: /send/i })).toBeEnabled();
+});
+
+// React adds method="POST" itself when it server-renders a Server Action form, and warns if
+// `method` is set by hand, so this checks the action is wired; the built HTML is checked separately.
+test("the form is wired to the action so a no-JS submit never puts fields in the URL", () => {
+  const { container } = render(<ContactForm />);
+  const formEl = container.querySelector("form")!;
+  expect(formEl.getAttribute("action")).toBeTruthy();
+  expect(formEl).not.toHaveAttribute("method", "get");
+});
+
+test("the honeypot has a non-semantic name and opts out of autofill and tabbing", () => {
+  const { container } = render(<ContactForm />);
+  const honeypot = container.querySelector<HTMLInputElement>('input[name="hp_field"]')!;
+  expect(honeypot).toHaveAttribute("autocomplete", "off");
+  expect(honeypot).toHaveAttribute("tabindex", "-1");
+  expect(container.querySelector('[name="company"]')).toBeNull();
+});
+
+test("a rejected action shows the phone-number error and allows a retry", async () => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  submit.mockRejectedValueOnce(new Error("Failed to find Server Action"));
+  const user = userEvent.setup();
+  render(<ContactForm />);
+  await fillValid(user);
+
+  await user.click(screen.getByRole("button", { name: /send/i }));
+
+  expect(await screen.findByRole("alert")).toHaveTextContent(site.phones[0].display);
+  submit.mockResolvedValueOnce({ status: "success" });
+  await user.click(screen.getByRole("button", { name: /send/i }));
+  await waitFor(() => expect(submit).toHaveBeenCalledTimes(2));
+  expect(await screen.findByRole("status")).toBeInTheDocument();
+});
+
+test("a server field error clears once that field changes", async () => {
+  submit.mockResolvedValue({
+    status: "error",
+    message: "Please fix the highlighted fields.",
+    fieldErrors: { email: ["That address bounced."] },
+  });
+  const user = userEvent.setup();
+  render(<ContactForm />);
+  await fillValid(user);
+
+  await user.click(screen.getByRole("button", { name: /send/i }));
+  expect(await screen.findByText("That address bounced.")).toBeInTheDocument();
+
+  await user.type(screen.getByLabelText(/email/i), "m");
+  expect(screen.queryByText("That address bounced.")).not.toBeInTheDocument();
 });

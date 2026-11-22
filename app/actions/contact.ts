@@ -2,8 +2,8 @@
 
 import { headers } from "next/headers";
 import { z } from "zod";
-import { site } from "@/content/site";
 import { sendContactEmail } from "@/lib/contact/email";
+import { CONTACT_FAILURE_MESSAGE } from "@/lib/contact/messages";
 import { contactSchema, type ContactInput } from "@/lib/contact/schema";
 import { verifyTurnstile } from "@/lib/contact/turnstile";
 
@@ -16,10 +16,7 @@ export type ContactState = {
 const SUCCESS: ContactState = { status: "success" };
 
 function failure(): ContactState {
-  return {
-    status: "error",
-    message: `Sorry, we couldn't send your message. Please call us at ${site.phones[0].display}.`,
-  };
+  return { status: "error", message: CONTACT_FAILURE_MESSAGE };
 }
 
 function field(formData: FormData, name: string): string | undefined {
@@ -37,7 +34,10 @@ export async function submitContact(
   formData: FormData,
 ): Promise<ContactState> {
   // Bots that fill the hidden field get a fake success so they don't retry.
-  if (field(formData, "company")) return SUCCESS;
+  if (field(formData, "hp_field")) {
+    console.warn("Contact form honeypot filled; message dropped");
+    return SUCCESS;
+  }
 
   const parsed = contactSchema.safeParse({
     name: field(formData, "name"),
@@ -45,7 +45,7 @@ export async function submitContact(
     phone: field(formData, "phone"),
     topic: field(formData, "topic"),
     message: field(formData, "message"),
-    company: field(formData, "company") ?? "",
+    hp_field: field(formData, "hp_field") ?? "",
   });
   if (!parsed.success) {
     return {

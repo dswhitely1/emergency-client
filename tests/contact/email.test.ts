@@ -8,7 +8,7 @@ const input: ContactInput = {
   phone: "812-555-0100",
   topic: "service",
   message: "My breaker keeps tripping.",
-  company: "",
+  hp_field: "",
 };
 
 const ENV = {

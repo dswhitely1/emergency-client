@@ -41,7 +41,8 @@ export function SiteFooter() {
         </ul>
         <p>{site.tagline.split(" | ").join(" · ")}</p>
       </div>
-      <p className="border-t border-dark-foreground/20 py-4 text-center text-sm">
+      {/* Extra bottom padding on mobile keeps the floating call button off this line. */}
+      <p className="border-t border-dark-foreground/20 pt-4 pb-24 text-center text-sm md:pb-4">
         © <CopyrightYear /> {site.name} All rights reserved.
       </p>
     </footer>

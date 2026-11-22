@@ -1,10 +1,17 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useRef } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import Script from "next/script";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { submitContact, type ContactState } from "@/app/actions/contact";
+import { CONTACT_FAILURE_MESSAGE } from "@/lib/contact/messages";
 import {
   contactSchema,
   TOPIC_LABELS,
@@ -41,10 +48,12 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 }
 
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState(
-    submitContact,
-    initialState,
-  );
+  // Without JS the browser posts the form to the action and this state renders the result.
+  const [actionState, formAction] = useActionState(submitContact, initialState);
+  // With JS, submissions go through onValid so a rejected action can be caught.
+  const [clientState, setClientState] = useState<ContactState | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const state = clientState ?? actionState;
   const formRef = useRef<HTMLFormElement>(null);
   // Blocks a second submit in the gap before isPending turns on.
   const submitting = useRef(false);
@@ -52,6 +61,7 @@ export function ContactForm() {
     register,
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
@@ -61,22 +71,37 @@ export function ContactForm() {
       phone: "",
       topic: "general",
       message: "",
-      company: "",
+      hp_field: "",
     },
   });
 
   useEffect(() => {
-    submitting.current = false;
     // Turnstile tokens are single-use, so a retry needs a fresh one.
     if (state.status === "error") window.turnstile?.reset();
-  }, [state]);
+    // As form errors, server messages clear once the field is edited and revalidates.
+    for (const [name, messages] of Object.entries(state.fieldErrors ?? {})) {
+      setError(name as keyof ContactInput, { type: "server", message: messages?.[0] });
+    }
+  }, [state, setError]);
 
   const onValid = () => {
     if (submitting.current || !formRef.current) return;
     submitting.current = true;
     // Read the form element itself so the Turnstile and honeypot fields go along.
     const formData = new FormData(formRef.current);
-    startTransition(() => formAction(formData));
+    startTransition(async () => {
+      let next: ContactState;
+      try {
+        next = await submitContact(state, formData);
+      } catch (error) {
+        // Offline, a 5xx, or a stale action ID after a redeploy.
+        console.error("Contact form submission failed", error);
+        next = { status: "error", message: CONTACT_FAILURE_MESSAGE };
+      } finally {
+        submitting.current = false;
+      }
+      startTransition(() => setClientState(next));
+    });
   };
 
   if (state.status === "success") {
@@ -91,7 +116,8 @@ export function ContactForm() {
   }
 
   const errorFor = (name: keyof ContactInput) =>
-    errors[name]?.message ?? state.fieldErrors?.[name]?.[0];
+    errors[name]?.message ??
+    (clientState ? undefined : actionState.fieldErrors?.[name]?.[0]);
   const fieldProps = (name: keyof ContactInput) => {
     const invalid = Boolean(errorFor(name));
     return {
@@ -104,6 +130,7 @@ export function ContactForm() {
   return (
     <form
       ref={formRef}
+      action={formAction}
       onSubmit={(event) => handleSubmit(onValid)(event)}
       noValidate
       className="grid gap-5"
@@ -182,10 +209,11 @@ export function ContactForm() {
 
       {/* Honeypot: off-screen and skipped by keyboard and screen readers. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="contact-company">Company</label>
+        {/* Non-semantic name and label so browsers have nothing to autofill. */}
+        <label htmlFor="contact-hp">Leave this field empty</label>
         <input
-          {...register("company")}
-          id="contact-company"
+          {...register("hp_field")}
+          id="contact-hp"
           tabIndex={-1}
           autoComplete="off"
         />
